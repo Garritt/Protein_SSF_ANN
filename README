@@ -1,2 +1,0 @@
-# Protein Structure ANN
-* [2-11] Working on the IO for the ANN. So far it is reading in 128 protein structures and saving the amino acid sequence as well as the target output to a "protein" object. will need to update this so that the IO is a sliding window of 17. maybe a scanner on the protein list? - cvhn
