@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 
 public class Edge {
 
@@ -27,5 +28,11 @@ public class Edge {
 	}
 	public double get_prev_delta_weight(){
 		return prev_delta_weight;
+	}
+	public void set_rand_w(double low, double high){
+		DecimalFormat df = new DecimalFormat("#.###");
+		double d = low + Math.random() * (high - low); 
+		String s = df.format(d);
+		weight = Double.parseDouble(s);
 	}
 }
