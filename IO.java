@@ -17,12 +17,16 @@ public class IO {
 
 		// attempting to get window
 		System.out.println("window attempt");
-		while(in.getTrain().get(0).getWindow() != null){
-			String[] temp = in.getTrain().get(0).getWindow();
+		for (int i = 0; i < in.getTrain().size()-1; i++) {
+			
+
+			while(in.getTrain().get(i).getWindow() != null){
+				String[][] temp = in.getTrain().get(i).getWindow();
 			// for(int i = 0; i < temp.length; i++) {
 			// 	System.out.print(temp[i] + " ");
 			// }
 			// System.out.println();
+			}
 		}
 	}
 
@@ -101,10 +105,10 @@ public class IO {
 				if(word.equals("<>")) {
 					continue;
 				}
-				if (wordcount == 0 && !word.equals("<end>")) {
+				if (wordcount == 0 && !word.equals("<end>")&& !word.equals("end")) {
 					// System.out.println("WORD YO : " + word);
 					temp.add(word);
-				} else if (wordcount > 0  && !word.equals("<end>")) {
+				} else if (wordcount > 0  && !word.equals("<end>")&& !word.equals("end")) {
 					
 					tempOutputs.add(word);
 				}
@@ -125,8 +129,8 @@ public class IO {
 
 class Protein {
 	public final int num_acids;
-	public final ArrayList<String> acids;
-	public final ArrayList<String> target_outputs;
+	private final ArrayList<String> acids;
+	private final ArrayList<String> target_outputs;
 	private int top, bottom, middle;
 	// private String[] window;
 
@@ -182,50 +186,62 @@ class Protein {
 		this.middle++;
 	}
 
-	public String[] getWindow(){
-		System.out.println("NUM ACIDS: " + num_acids);
+	public String[][] getWindow(){
+		// System.out.println("NUM ACIDS: " + num_acids);
 		if (top == num_acids-1) {
 			return null;
 		}
-		String[] window = new String[17];
+		String[][] window = new String[2][17];
 		int k = 0;
 
-		System.out.println("Bottom: " + this.bottom);
-		System.out.println("Middle: " + this.middle);
-		System.out.println("Top: " + this.top);
+		// System.out.println("Bottom: " + this.bottom);
+		// System.out.println("Middle: " + this.middle);
+		// System.out.println("Top: " + this.top);
 
 		if(this.bottom < 0) {
 			for(int i = this.bottom; i < 0; i++){
-				window[k] = "-";
+				window[0][k] = "-";
+				window[1][k] = "-";
 				k++;
 			}
 			// window[k] = this.getAcid().get(middle);
 			// k++;
 			for(int j = 0; j < this.top; j++) {
-				window[k] = this.getAcid().get(j);
+				window[0][k] = this.getAcid().get(j);
+				window[1][k] = this.getOutputs().get(j);
 				k++;
 			}
 
 		} else if ((this.num_acids - this.top) < 7) {
-			for(int j = this.top; j < this.num_acids-1; j++) {
-				window[k] = this.getAcid().get(j);
+			for(int j = this.top; j < this.acids.size()-1; j++) {
+				// System.out.println("J : ");
+				window[0][k] = this.getAcid().get(j);
+				window[1][k] = this.getOutputs().get(j);
 				k++;
 			}
 			while(k<17) {
-				window[k] = "-";
+				window[0][k] = "-";
+				window[1][k] = "-";
 				k++;
 			}
 		} else {
 			for (int j = this.bottom; j < this.top; j++){
-				window[k] = this.getAcid().get(j);
+				window[0][k] = this.getAcid().get(j);
+				window[1][k] = this.getOutputs().get(j);
 				k++;
 			}
 		}
+		// System.out.print("\t\t\t\t\t\t");
+		// for(int i = 0; i < 17; i++){
+		// 	System.out.print(window[0][i] + " ");
+		// }
+		// System.out.println();
+		// System.out.print("\t\t\t\t\t\t");
 
-		for(int i = 0; i < 17; i++){
-			System.out.print(window[i] + " ");
-		}
-		System.out.println();
+		// for(int i = 0; i < 17; i++){
+		// 	System.out.print(window[1][i] + " ");
+		// }
+		// System.out.println();
 		this.increaseBottom();
 		this.increaseTop();
 		this.increaseMiddle();

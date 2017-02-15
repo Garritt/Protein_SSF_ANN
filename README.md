@@ -8,6 +8,7 @@
 ### Protein
 
 * This is the protein object. getWindow is here
+* getwindow will return a String[][] = new String[2][17] which is the window of amino acids as well as target outputs
 
 ### IO
 
