@@ -3,10 +3,15 @@
 
 ## IO.java File
 
-## There are now three classes within this file:
+* There are now three classes within this file:
+
 ### Protein
+
 * This is the protein object. getWindow is here
+
 ### IO
+
 * Handles the io for the project. builds proteins and partitions into appropriate datasets
+
 ### DataSets
 * The three lists: train, tune, test
