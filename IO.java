@@ -59,7 +59,7 @@ public class IO {
 
 		while(fileScanner.hasNext()) {
 			String line = fileScanner.nextLine().trim();
-			trueCount++;
+			// trueCount++;
 
 
 			// Skip the empty line, duh
@@ -96,6 +96,7 @@ public class IO {
 				} else {
 					training.add(prot);
 				}
+				trueCount++;
 				// System.out.println("\n\n\nTrue Count: " + trueCount);
 				
 			}
