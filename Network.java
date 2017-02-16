@@ -79,22 +79,62 @@ public class Network {
 					Window window = prot.getWindow();
 					double [] true_output = window.getOutputs()[8]; // Output Based on nucleation site, always 9th in window
 					double [] network_output = feed_forward(window);
+					if (true_output.length != network_output.length) {
+						System.err.println("Network Output Vector Inbalance");
+						System.exit(1);
+					}
 					back_propagation(network_output, true_output, .05);
 				}
 			}
-			// Early Stopping
+			// Early Stopping. Check against tune.
 			if (epochs % 2 == 0) {
+				double naive_accuracy = 0;
+				double correct = 0;
+				double total = 0;
 				for (Protein prot : tune) {
+					total += prot.num_acids;
 					for (int j = 0; j < prot.num_acids; j++) {	
 						// input window example for this amino acid
 						Window window = prot.getWindow();
-						double [] true_output = window.getOutputs()[8]; 
+						double [] true_output = window.getOutputs()[8];
 						double [] network_output = feed_forward(window);
-						// Naive accuracy HERE
+						if (assess_network_output(true_output, network_output) == true) {
+							correct++;
+						}
 					}
 				}
+				naive_accuracy = correct / total;
+				System.out.println("Naive Accuracy TUNE after epoch " + epochs + ": " + naive_accuracy);
 			}
 		}
+		
+	}
+	
+	/*
+	 * Assesses one examples network output vs expected output.
+	 * Returns true if network was correct, false otherwise.
+	 * 
+	 * Note: Network output may not be "one hot", so we assume the output unit with the max value to be the prediction.
+	 * 
+	 * */
+	boolean assess_network_output (double [] true_output, double [] network_output) {
+		int true_idx = 0;
+		int net_max_idx = 0;
+		double net_max_out = 0;
+		
+		for (int i = 0; i < network_output.length; i++) {	
+			if (true_output[i] == 1) {
+				true_idx = i;
+			}
+			if (network_output[i] > net_max_out) {
+				net_max_out = network_output[i];
+				net_max_idx = i;
+			}
+		}
+		if (net_max_idx == true_idx) {
+			return true;
+		}
+		return false;
 	}
 	
 	public static void main (String args[]) {		

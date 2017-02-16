@@ -1,0 +1,36 @@
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+public class iperfer_client {
+
+	final int port;
+	final long time;
+	final String host;	
+
+	public iperfer_client (int port, long time, String host) {
+		this.port = port;
+		this.host = host;
+		this.time = time;
+	}
+
+	public void send_data (int time) throws UnknownHostException, IOException {
+
+		Socket s =  null;
+		s =	new Socket(this.host, this.port);
+		DataOutputStream outToServer = new DataOutputStream(s.getOutputStream());
+		
+		byte[] data = null;
+		long t = System.currentTimeMillis();
+		long end = t + time * 1000;
+		int sent = 0;
+
+		while (System.currentTimeMillis() < end) {
+			data = new byte[1000];
+			Arrays.fill(data, (byte)0);
+			outToServer.write(data);
+			sent += 1000;
+		}
+		s.close();
+	}	
+}

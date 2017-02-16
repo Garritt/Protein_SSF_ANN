@@ -1,0 +1,27 @@
+import java.net.*;
+import java.util.*;
+
+public class iperfer_client {
+
+	final int port;
+	final int time;
+	final String host;	
+
+	public iperfer_client (int port, int time, String host) {
+		this.port = port;
+		this.host = host;
+		this.time = time;
+		Byte[] data = new Byte[1000];
+		Arrays.fill(data, (byte)0);
+		try {
+			Socket s = new Socket(this.host, this.port);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void send_data () {
+
+	}	
+	
+}

@@ -1,0 +1,33 @@
+import java.io.*;
+import java.net.*;
+import java.nio.*;
+
+public class iperfer_server {
+
+	final int port;
+	static ServerSocket listener;
+	
+	public iperfer_server(int port) throws IOException {
+		this.port = port;
+		listener = new ServerSocket(port);	
+	}
+	
+	public void listen() throws IOException {
+		byte[] buff = null;
+		while (true) {
+			buff = new byte[1000];
+			/* Block until a client requests a connection to this application */
+			Socket c_socket = listener.accept();
+			/* Read input from client  */
+			InputStream in = c_socket.getInputStream();
+			/* Prepare output for client */
+
+			while (in.read(buff) > 0) {
+				System.out.println("Message Received");
+				System.out.println(buff);
+			}
+			c_socket.close();
+			// Summary Code below
+		}
+	}
+}

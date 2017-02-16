@@ -1,0 +1,29 @@
+
+public class Network {
+
+	public Network (int input_n, int output_n, int h_layers, int [] hu_per_layer) {
+		
+		if (hu_per_layer.length != h_layers) {
+			System.err.println("Network Initialization Error: hidden layers does not match hidden unit per layer vector");
+		}
+	
+		// Layer Initialization
+		Layer input_layer = new Layer();
+		input_layer.addNeurons(input_n);
+		Layer output_layer = new Layer();
+		output_layer.addNeurons(output_n);
+		input_layer.setAsInputLayer();
+		// Hidden Layers
+		for (int i = 0; i < h_layers; i++) {
+			Layer hl = new Layer();
+			hl.addNeurons(hu_per_layer[i]);
+		}
+		
+		
+		
+		
+	}
+	
+	
+	
+}

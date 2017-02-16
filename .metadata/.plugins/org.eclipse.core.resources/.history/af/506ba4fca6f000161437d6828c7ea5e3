@@ -1,0 +1,23 @@
+
+public class Edge {
+
+	double weight;
+	double prev_delta_weight; 	//momentum
+	double delta_weight;
+	
+	final Neuron N_Left;
+	final Neuron N_Right;
+	
+	public Edge (Neuron LN, Neuron RN, double w) {
+		this.N_Left = LN;
+		this.N_Right = RN;
+		this.weight = w;
+	}
+	
+	public void set_weight (double w) {
+		this.weight = w;
+	}
+	public double get_weight () {
+		return this.weight;
+	}
+}

@@ -1,0 +1,35 @@
+import java.io.*;
+import java.net.*;
+
+public class iperfer_server {
+
+	final int port;
+	static ServerSocket listener;
+	
+	public iperfer_server(int port) throws IOException {
+		this.port = port;
+		listener = new ServerSocket(port);	
+	}
+	
+	public void listen() throws IOException {
+		byte[] buff = null;
+		buff = new byte[1000];
+		/* Block until a client requests a connection to this application */
+		Socket c_socket = listener.accept();
+		/* Read input from client  */
+		InputStream in = c_socket.getInputStream();
+		/* Prepare output for client */
+		int recv;
+		int total_recv = 0;
+		long t_start = System.currentTimeMillis();
+		while ((recv = in.read(buff)) > 0) {
+			total_recv += recv;
+		}
+		long t_end = System.currentTimeMillis();
+		long time = (t_end - t_start)/1000;
+		
+		c_socket.close();
+		// Summary Code below
+		System.out.println("Recieved=" + total_recv/1000 + " KB rate=" + (total_recv/10000) + "Mbps");
+	}
+}

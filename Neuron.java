@@ -40,7 +40,7 @@ public class Neuron {
 			}
 		}
 	}
-	public Edge get_edge(int neuron_id) {
+	public Edge get_edge (int neuron_id) {
 		return edge_lookup.get(neuron_id);
 	}
 	public ArrayList<Edge> getInputLayer() {

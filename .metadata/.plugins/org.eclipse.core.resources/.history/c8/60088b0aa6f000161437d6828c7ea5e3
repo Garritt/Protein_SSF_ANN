@@ -1,0 +1,20 @@
+
+public class Edge {
+
+	double weight;
+	double prev_delta_weight; 	//momentum
+	double delta_weight;
+	
+	final Neuron N_Left;
+	final Neuron N_Right;
+	
+	public Edge (Neuron LN, Neuron RN) {
+		this.N_Left = LN;
+		this.N_Right = RN;
+		
+	}
+	
+	public setWeight (double new_weight) {
+		this.weight = new_weight;
+	}
+}
