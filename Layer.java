@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 public class Layer {
 
 	static int layer_count = 0;

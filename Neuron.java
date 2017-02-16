@@ -14,19 +14,26 @@ public class Neuron {
 	static int id_count = 0;
 	final public int id;
 	
-	// Neuron Output value
-	double [] output; 
+	// Neuron Input/Output value
+	double [] inputs;
+	double output;
 	
 	public Neuron (){
 		this.id = id_count;
 		id_count++; 
 	}
 	
-	public double [] getOutput() {
+	public double [] getInputs() {
+		return this.inputs;
+	}
+	public double getOutput() {
 		return this.output;
 	}
-	public void setOutput(double [] o) {
+	public void setOutput(double o) {
 		this.output = o;
+	}
+	public void setInputs(double [] i) {
+		this.inputs = i;
 	}
 	public Edge get_edge(int neuron_id) {
 		return edge_lookup.get(neuron_id);
@@ -39,17 +46,37 @@ public class Neuron {
 	 * Passes Weighted linear Sum to Activation function
 	 * 
 	 * */
-	public void calculate_output(){
+	public void calc_output(){
 		double sum = 0;
 		for (Edge e : input_edges) {
 			Neuron in = e.get_N_IN();
 			double weight = e.get_weight();
-			double [] prev_output = in.output;
+			double prev_output = in.output;
 			sum = sum + (weight * prev_output);
 		}
 		sum = sum + (bias_edge.get_weight() * bias);
-		this.output = sigmoid(sum);
+		// Sigmoid Activation function
+		this.output = 1.0/ (1.0 + Math.exp(-sum));
 	}
+	
+	/* Specific output for ReLU in input layer*/
+	public void calc_output_input_layer() {
+		double sum = 0;
+		for (Edge e : input_edges) {
+			Neuron in = e.get_N_IN();
+			double weight = e.get_weight();
+			double [] input = in.inputs;
+			for (int i = 0; i < input.length; i++) {
+				if (input[i] == 1) {
+					sum = sum + (weight * i); 			// POSSIBLE ERROR HERE. WE USE THE INDEX OF "ONE HOT SPOT" * weight.
+					break;
+				}
+			}
+		}
+		// ReLU activation function
+		this.output = Double.max(0, sum);
+	}
+	
 	
 	/*
 	 * Add edges from previous layer of neurons to this Neuron. 
@@ -69,15 +96,4 @@ public class Neuron {
 		bias_edge = edge_bias;
 		input_edges.add(bias_edge);
 	}
-	
-	private double sigmoid (double sum) {
-		return 1.0 / (1.0 + (Math.exp(-sum)));
-	}
-	
-	
-	// ReLU private calc here as well
-	/*
-	 * 
-	 * */
-	
 }

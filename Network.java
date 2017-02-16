@@ -1,4 +1,5 @@
 import java.util.*;
+
 public class Network {
 
 	Layer input_layer, output_layer;
@@ -9,7 +10,6 @@ public class Network {
 		if (hu_per_layer.length != h_layers) {
 			System.err.println("Network Initialization Error: hidden layers does not match hidden unit per layer vector");
 		}
-	
 		// Layer Initialization (includes a random edge weight initialization)
 		this.input_layer = new Layer();
 		input_layer.setAsInputLayer();
@@ -31,33 +31,43 @@ public class Network {
 		ArrayList<Protein> train = data.getTrain();
 		ArrayList<Protein> tune = data.getTrain();
 		ArrayList<Protein> test = data.getTest();
-			
 		double error = 1;
-		// set inputs
+		
 		for (int i = 0; i < epochs && error > minError; i++) {
 			// Start Forward Feed
 			for (Protein prot : train) {
+				
 				// entire input window for this example set
 				Window window = prot.getWindow();
 				double[][] inputs = window.getInputs();
 				double[][] outputs = window.getOutputs();
-				// Initialize input Layer with window 
+				
+				// Initialize input Layer with Window 
 				ArrayList<Neuron> input_units = input_layer.getLayer();
-				for (int k = 0; k < input_units.size(); k++) {
-					Neuron unit = input_units.get(k);
-					unit.setOutput(inputs[k]);
+				for (int k = 0; k < input_units.size(); k++) {	
+					input_units.get(k).setInputs(inputs[k]);
 				}
 				// feed forward through all hidden layers
-				for (Layer h_layer : this.hidden_layers) {
+				for (int g = 0; g < this.hidden_layers.size(); g++) {
+					Layer h_layer = this.hidden_layers.get(g);
 					// All hidden units in this layer
 					for (Neuron unit : h_layer.getLayer()) {
-						// pass 2d array input index to calculate output?
-						unit.calculate_output();
+						// Use specific output function for input units
+						if (g == 1) {
+							unit.calc_output_input_layer();
+						} else {
+							unit.calc_output();							
+						}
 					}
 				}
+				
+				// feed forward to output layer
 				for (Neuron unit : output_layer.getLayer()) {
 					
 				}
+				// Output stuff
+				// Error stuff
+				// Backprop
 			}
 		}
 	}
