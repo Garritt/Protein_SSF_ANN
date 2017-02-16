@@ -10,24 +10,99 @@ public class IO {
 	public static void main(String[] args) {
 		DataSets in = readFile(args[0]);
 
-		// System.out.println("We read in " + in.size() + " proteins");
-
-		// for(int i = 0; i < in.getTrain().size()-1; i++)
-		// 	in.getTrain().get(i).printProtein();
-
 		// attempting to get window
 		System.out.println("window attempt");
+		int count = 0;
 		for (int i = 0; i < in.getTrain().size()-1; i++) {
 			
+			count++;
 
 			while(in.getTrain().get(i).getWindow() != null){
-				String[][] temp = in.getTrain().get(i).getWindow();
-			// for(int i = 0; i < temp.length; i++) {
-			// 	System.out.print(temp[i] + " ");
-			// }
-			// System.out.println();
+				
+				// System.out.println(count);
+				Window temp = in.getTrain().get(i).getWindow();
+				if(temp == null) {
+					continue;
+				}
+				// System.out.println("Protein: " + count);
+				Double[][] inp = temp.getInputs();
+				Double[][] out = temp.getOutputs();
+
+				// for(int j = 0; j < 16; j++) {
+				// 	System.out.println("IN");
+				// 	for(int k = 0; k < inp[j].length; k++) {
+				// 		System.out.print(inp[j][k] + " ");
+				// 	}
+				// 	for(int k = 0; k < out[j].length; k++) {
+				// 		System.out.print(out[j][k] + " ");
+				// 	}
+				// }
 			}
 		}
+	}
+
+
+	private static Double[] addAcid(String acid) {
+		Double[] ret;
+		switch(acid) {
+			case "E": ret = new Double[]{1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "I": ret = new Double[]{0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "N": ret = new Double[]{0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "L": ret = new Double[]{0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "K": ret = new Double[]{0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "S": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "G": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "M": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "F": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "R": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "V": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "Y": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "Q": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "P": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "C": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "H": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0};
+			break;
+			case "W": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0};
+			break;
+			case "T": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0};
+			break;
+			case "D": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0};
+			break;
+			case "A": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0};
+			break;
+			default: ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+		}
+		return ret;
+	}
+
+	private static Double[] addOutput(String output) {
+		Double[] ret;
+		switch(output) {
+			case "e": ret = new Double[]{1.0,0.0,0.0};
+			break;
+			case "h": ret = new Double[]{0.0,1.0,0.0};
+			break;
+			case "-": ret = new Double[]{0.0,0.0,1.0};
+			break;
+			default: ret = new Double[]{0.0,0.0,0.0};
+			;
+		}
+		return ret;
 	}
 
 	public static DataSets readFile(String filename) {
@@ -51,8 +126,8 @@ public class IO {
 		int trueCount = 0;
 		int numProteins = 1;
 		boolean beginning = true;
-		ArrayList<String> temp = new ArrayList<String>();
-		ArrayList<String> tempOutputs = new ArrayList<String>();
+		ArrayList<Double[]> temp = new ArrayList<Double[]>();
+		ArrayList<Double[]> tempOutputs = new ArrayList<Double[]>();
 		ArrayList<Protein> training = new ArrayList<Protein>();
 		ArrayList<Protein> tuning = new ArrayList<Protein>();
 		ArrayList<Protein> testing = new ArrayList<Protein>();
@@ -75,20 +150,16 @@ public class IO {
 
 			// Need another shit ass scanner for the line
 			Scanner wordscanner = new Scanner(line);
-			// System.out.print("Linecount: " + linecount + " ");
 
 			
 			if((line.equals("end") || line.equals("<end>")) || (line.equals("<>") && !beginning) && linecount > 1) {
-				// the protein is now complete
-				// System.out.println(linecount + " < - linecount");
+
 				Protein prot = new Protein(linecount, temp, tempOutputs);
-				temp = new ArrayList<String>();
-				tempOutputs = new ArrayList<String>();
+				temp = new ArrayList<Double[]>();
+				tempOutputs = new ArrayList<Double[]>();
 				linecount = 0;
-				// System.out.println("Protein Number: " + numProteins);
 				numProteins++;
 				beginning = true;
-				// prot.printProtein();
 				if (trueCount % 5 == 0) {
 					tuning.add(prot);
 				} else if (trueCount % 5 == 1) {
@@ -97,7 +168,6 @@ public class IO {
 					training.add(prot);
 				}
 				trueCount++;
-				// System.out.println("\n\n\nTrue Count: " + trueCount);
 				
 			}
 			int wordcount = 0;
@@ -107,18 +177,15 @@ public class IO {
 					continue;
 				}
 				if (wordcount == 0 && !word.equals("<end>")&& !word.equals("end")) {
-					// System.out.println("WORD YO : " + word);
-					temp.add(word);
+					temp.add(addAcid(word));
 				} else if (wordcount > 0  && !word.equals("<end>")&& !word.equals("end")) {
 					
-					tempOutputs.add(word);
+					tempOutputs.add(addOutput(word));
 				}
-				// System.out.print(word + " ");
 				wordcount++;
 			}
 			linecount++;
 
-			// System.out.println();
 
 		}
 		DataSets data = new DataSets(training, tuning, testing);
@@ -128,22 +195,39 @@ public class IO {
 
 }
 
+class Window {
+	private final Double[][] inputs;
+	private final Double[][] target_outputs;
+
+
+	public Window(Double[][] in, Double[][] out) {
+		this.inputs = in;
+		this.target_outputs = out;
+	}
+
+	public Double[][] getInputs() {
+		return this.inputs;
+	}
+
+	public Double[][] getOutputs() {
+		return this.target_outputs;
+	}
+}
+
 class Protein {
 	public final int num_acids;
-	private final ArrayList<String> acids;
-	private final ArrayList<String> target_outputs;
+	private final ArrayList<Double[]> acids;
+	private final ArrayList<Double[]> target_outputs;
 	private int top, bottom, middle;
-	// private String[] window;
 
 
-	public Protein(int aminoacids, ArrayList<String> acids, ArrayList<String> outputs) {
+	public Protein(int aminoacids, ArrayList<Double[]> acids, ArrayList<Double[]> outputs) {
 		this.num_acids = aminoacids;
 		this.acids = acids;
 		this.target_outputs = outputs;
 		this.top = 8;
 		this.middle = 0;
 		this.bottom = -9;
-		// this.window = new String[17];
 	}
 
 	public void printProtein() {
@@ -165,11 +249,11 @@ class Protein {
 	}
 
 
-	public ArrayList<String> getAcid(){
+	public ArrayList<Double[]> getAcid(){
 		return this.acids;
 	}
 
-	public ArrayList<String> getOutputs(){
+	public ArrayList<Double[]> getOutputs(){
 		return this.target_outputs;
 	}
 
@@ -187,51 +271,53 @@ class Protein {
 		this.middle++;
 	}
 
-	public String[][] getWindow(){
-		// System.out.println("NUM ACIDS: " + num_acids);
+
+	public Window getWindow(){
 		if (top == num_acids-1) {
 			return null;
 		}
-		String[][] window = new String[2][17];
+		Double[][] in = new Double[17][21];
+		Double[][] out = new Double[17][3];
 		int k = 0;
 
-		// System.out.println("Bottom: " + this.bottom);
-		// System.out.println("Middle: " + this.middle);
-		// System.out.println("Top: " + this.top);
+		// for(int i = this.bottom; i < this.top; i++){
+		// 	in[k] = this.getAcid().get()
+		// }
+
+
 
 		if(this.bottom < 0) {
 			for(int i = this.bottom; i < 0; i++){
-				window[0][k] = "-";
-				window[1][k] = "-";
+				in[k] = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+				out[k] = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
 				k++;
 			}
-			// window[k] = this.getAcid().get(middle);
-			// k++;
+
 			for(int j = 0; j < this.top; j++) {
-				window[0][k] = this.getAcid().get(j);
-				window[1][k] = this.getOutputs().get(j);
+				in[k] = this.getAcid().get(j);
+				out[k] = this.getOutputs().get(j);
 				k++;
 			}
 
 		} else if ((this.num_acids - this.top) < 7) {
 			for(int j = this.top; j < this.acids.size()-1; j++) {
-				// System.out.println("J : ");
-				window[0][k] = this.getAcid().get(j);
-				window[1][k] = this.getOutputs().get(j);
+				in[k] = this.getAcid().get(j);
+				out[k] = this.getOutputs().get(j);
 				k++;
 			}
 			while(k<17) {
-				window[0][k] = "-";
-				window[1][k] = "-";
+				in[k] = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+				out[k] = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
 				k++;
 			}
 		} else {
 			for (int j = this.bottom; j < this.top; j++){
-				window[0][k] = this.getAcid().get(j);
-				window[1][k] = this.getOutputs().get(j);
+				in[k] = this.getAcid().get(j);
+				out[k] = this.getOutputs().get(j);
 				k++;
 			}
 		}
+		Window window = new Window(in, out);
 		// System.out.print("\t\t\t\t\t\t");
 		// for(int i = 0; i < 17; i++){
 		// 	System.out.print(window[0][i] + " ");
