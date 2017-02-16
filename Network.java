@@ -13,17 +13,17 @@ public class Network {
 		// Layer Initialization (includes a random edge weight initialization)
 		this.input_layer = new Layer();
 		input_layer.setAsInputLayer();
-		input_layer.addNeurons(input_n, null);
+		input_layer.addNeurons(input_n, null, Neuron_Type.INPUT);
 		// Hidden Layers
 		Layer prevL = input_layer;
 		for (int i = 0; i < h_layers; i++) {
 			Layer hl = new Layer();
-			hl.addNeurons(hu_per_layer[i], prevL);
+			hl.addNeurons(hu_per_layer[i], prevL, Neuron_Type.HIDDEN);
 			this.hidden_layers.add(hl);
 			prevL = hl;
 		}
 		this.output_layer = new Layer();
-		output_layer.addNeurons(output_n, prevL);
+		output_layer.addNeurons(output_n, prevL, Neuron_Type.OUTPUT);
 	}
 	
 	
@@ -50,29 +50,24 @@ public class Network {
 				// Initialize input Layer with Window 
 				ArrayList<Neuron> input_units = input_layer.getLayer();
 				for (int k = 0; k < input_units.size(); k++) {	
-					input_units.get(k).setInputs(inputs[k]);
+					input_units.get(k).setInputUnits(inputs[k]);
 				}
 				// feed forward through all hidden layers
 				for (int g = 0; g < this.hidden_layers.size(); g++) {
 					Layer h_layer = this.hidden_layers.get(g);
 					// All hidden units in this layer
 					for (Neuron h_unit : h_layer.getLayer()) {
-						// Use specific output function for input units
-						if (g == 1) {
-							h_unit.calc_output_input_layer();
-						} else {
-							h_unit.calc_output();							
-						}
+						h_unit.activate();
 					}
 				}		
 				// feed forward to output layer. Also calculate total squared error
-				double total_err = 0;
+				//double total_err = 0;
 				double [] network_output = new double [true_output.length];
 				for (int g = 0; g < output_layer.getLayer().size(); g++) {
 					Neuron output_unit = output_layer.getLayer().get(g);
-					output_unit.calc_output();
+					output_unit.activate();
 					network_output[g] = output_unit.getOutput();
-					total_err += Math.pow((true_output[g] - network_output[g]), 2);
+					//total_err += Math.pow((true_output[g] - network_output[g]), 2);
 				}
 				back_propagation(network_output, true_output, .05);
 			}
@@ -87,6 +82,5 @@ public class Network {
 		int [] hl_units = {10};
 		Network ANN = new Network(17, 3, 1, hl_units);
 		ANN.run(10, .37, data);
-	}
-	
+	}	
 }

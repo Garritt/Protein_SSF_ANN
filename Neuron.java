@@ -13,27 +13,32 @@ public class Neuron {
 	// Neuron ID for hashing edge lookup
 	static int id_count = 0;
 	final public int id;
+	final private Neuron_Type type;
+	private double output;
 	
-	// Neuron Input/Output value
-	double [] inputs;
-	double output;
-	
-	public Neuron (){
+	public Neuron (Neuron_Type type) {
+		this.type = type;
 		this.id = id_count;
 		id_count++; 
 	}
 	
-	public double [] getInputs() {
-		return this.inputs;
-	}
+//	public double getInputs() {
+//		return this.inputs;
+//	}
 	public double getOutput() {
 		return this.output;
 	}
 	public void setOutput(double o) {
 		this.output = o;
 	}
-	public void setInputs(double [] i) {
-		this.inputs = i;
+	public void setInputUnits(double [] in) {
+		// SETTING THE INPUT NEURON'S OUTPUT AS INDEX OF "ONE HOT SPOT" .. POSSIBLE ERROR
+		for (int i = 0; i < in.length; i++){
+			if (in[i] == 1) {
+				this.output = i;
+				break;
+			}
+		}
 	}
 	public Edge get_edge(int neuron_id) {
 		return edge_lookup.get(neuron_id);
@@ -41,41 +46,61 @@ public class Neuron {
 	public ArrayList<Edge> getInputLayer() {
 		return input_edges;
 	}
-	
-	/*
-	 * Passes Weighted linear Sum to Activation function
-	 * 
-	 * */
-	public void calc_output(){
-		double sum = 0;
-		for (Edge e : input_edges) {
-			Neuron in = e.get_N_IN();
-			double weight = e.get_weight();
-			double prev_output = in.output;
-			sum = sum + (weight * prev_output);
+
+	// This combination wont actually help our network as the activation functions are 
+	public void activate() {
+		
+		if (this.type.equals(Neuron_Type.INPUT)) {
+			// ReLU shut here. 
+		} else {
+			// Weighted Linear Sum 
+			double sum = 0;
+			for (Edge e : input_edges) {
+				Neuron in = e.get_N_IN();
+				double weight = e.get_weight();
+				double prev_output = in.output;
+				sum = sum + (weight * prev_output);
+			}	
+			sum = sum + (bias_edge.get_weight() * bias);
+			// Sigmoid Activation function
+			this.output = 1.0/ (1.0 + Math.exp(-sum));
 		}
-		sum = sum + (bias_edge.get_weight() * bias);
-		// Sigmoid Activation function
-		this.output = 1.0/ (1.0 + Math.exp(-sum));
 	}
 	
-	/* Specific output for ReLU in input layer*/
-	public void calc_output_input_layer() {
-		double sum = 0;
-		for (Edge e : input_edges) {
-			Neuron in = e.get_N_IN();
-			double weight = e.get_weight();
-			double [] input = in.inputs;
-			for (int i = 0; i < input.length; i++) {
-				if (input[i] == 1) {
-					sum = sum + (weight * i); 			// POSSIBLE ERROR HERE. WE USE THE INDEX OF "ONE HOT SPOT" * weight.
-					break;
-				}
-			}
-		}
-		// ReLU activation function
-		this.output = Double.max(0, sum);
-	}
+//	/*
+//	 * Passes Weighted linear Sum to Activation function
+//	 * 
+//	 * */
+//	public void calc_output(){
+//		double sum = 0;
+//		for (Edge e : input_edges) {
+//			Neuron in = e.get_N_IN();
+//			double weight = e.get_weight();
+//			double prev_output = in.output;
+//			sum = sum + (weight * prev_output);
+//		}
+//		sum = sum + (bias_edge.get_weight() * bias);
+//		// Sigmoid Activation function
+//		this.output = 1.0/ (1.0 + Math.exp(-sum));
+//	}
+//	
+//	/* Specific output for ReLU in input layer*/
+//	public void calc_output_input_layer() {
+//		double sum = 0;
+//		for (Edge e : input_edges) {
+//			Neuron in = e.get_N_IN();
+//			double weight = e.get_weight();
+//			double [] input = in.inputs;
+//			for (int i = 0; i < input.length; i++) {
+//				if (input[i] == 1) {
+//					sum = sum + (weight * i); 			// POSSIBLE ERROR HERE. WE USE THE INDEX OF "ONE HOT SPOT" * weight.
+//					break;
+//				}
+//			}
+//		}
+//		// ReLU activation function
+//		this.output = Double.max(0, sum);
+//	}
 	
 	
 	/*

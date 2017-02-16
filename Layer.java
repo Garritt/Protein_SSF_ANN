@@ -21,12 +21,12 @@ public class Layer {
 	 * Nueron prev Layer.
 	 * 
 	 * */
-	public void addNeurons (int num, Layer prevL) {
+	public void addNeurons (int num, Layer prevL, Neuron_Type type) {
 		for (int i = 0; i < num; i++) {
-			Neuron n = new Neuron();
+			Neuron n = new Neuron(type);
 			layer.add(n);
 			if (!input_layer) {
-				Neuron bias = new Neuron();
+				Neuron bias = new Neuron(type);
 				n.construct_In_Edges(prevL, bias);
 			}
 		}
