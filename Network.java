@@ -26,11 +26,15 @@ public class Network {
 		output_layer.addNeurons(output_n, prevL, Neuron_Type.OUTPUT);
 	}
 	
-	
 	void back_propagation (double [] network_output, double [] true_output, double alpha) {
 		
 	}
 	
+	/*
+	 * 	Feeds one amino acid example through the network.
+	 *  Returns the network_output.
+	 * 
+	 * */
 	double [] feed_forward (Window window) {
 		
 		double[][] inputs = window.getInputs();
@@ -62,21 +66,34 @@ public class Network {
 	}
 	
 	void run (int epochs, double minError, DataSets data) {
-		
 		ArrayList<Protein> train = data.getTrain();
 		ArrayList<Protein> tune = data.getTrain();
 		ArrayList<Protein> test = data.getTest();
 		double error = 1;
 		
 		for (int i = 0; i < epochs && error > minError; i++) {	
+			// Training on this Protein. One Protein provides many training examples
 			for (Protein prot : train) {
-				// entire input window for this example set
-				Window window = prot.getWindow();
-				double [] true_output = window.getOutputs()[8]; // Output Based on nucleation site, always 9th in window
-				double [] network_output = feed_forward(window);
-				back_propagation(network_output, true_output, .05);
+				for (int j = 0; j < prot.num_acids; j++) {	
+					// input window example for this amino acid
+					Window window = prot.getWindow();
+					double [] true_output = window.getOutputs()[8]; // Output Based on nucleation site, always 9th in window
+					double [] network_output = feed_forward(window);
+					back_propagation(network_output, true_output, .05);
+				}
 			}
-		// EARLY STOPPING STUFF HERE
+			// Early Stopping
+			if (epochs % 2 == 0) {
+				for (Protein prot : tune) {
+					for (int j = 0; j < prot.num_acids; j++) {	
+						// input window example for this amino acid
+						Window window = prot.getWindow();
+						double [] true_output = window.getOutputs()[8]; 
+						double [] network_output = feed_forward(window);
+						// Naive accuracy HERE
+					}
+				}
+			}
 		}
 	}
 	
