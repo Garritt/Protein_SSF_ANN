@@ -15,17 +15,17 @@ public class Neuron {
 	final public int id;
 	
 	// Neuron Output value
-	double output; 
+	double [] output; 
 	
 	public Neuron (){
 		this.id = id_count;
 		id_count++; 
 	}
 	
-	public double getOutput() {
+	public double [] getOutput() {
 		return this.output;
 	}
-	public void setOutput(double o) {
+	public void setOutput(double [] o) {
 		this.output = o;
 	}
 	public Edge get_edge(int neuron_id) {
@@ -44,7 +44,7 @@ public class Neuron {
 		for (Edge e : input_edges) {
 			Neuron in = e.get_N_IN();
 			double weight = e.get_weight();
-			double prev_output = in.output;
+			double [] prev_output = in.output;
 			sum = sum + (weight * prev_output);
 		}
 		sum = sum + (bias_edge.get_weight() * bias);
