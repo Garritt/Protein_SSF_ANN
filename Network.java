@@ -38,10 +38,15 @@ public class Network {
 			// Start Forward Feed
 			for (Protein prot : train) {
 				// entire input window for this example set
-				ArrayList<double[]> window = prot.getWindow();
+				Window window = prot.getWindow();
+				double[][] inputs = window.getInputs();
+				double[][] outputs = window.getOutputs();
 				// Initialize input Layer with window 
-				
-				
+				ArrayList<Neuron> input_units = input_layer.getLayer();
+				for (int k = 0; k < input_units.size(); k++) {
+					Neuron unit = input_units.get(k);
+					unit.setOutput(inputs[k]);
+				}
 				// feed forward through all hidden layers
 				for (Layer h_layer : this.hidden_layers) {
 					// All hidden units in this layer

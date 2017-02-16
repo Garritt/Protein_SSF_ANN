@@ -25,8 +25,8 @@ public class IO {
 					continue;
 				}
 				// System.out.println("Protein: " + count);
-				Double[][] inp = temp.getInputs();
-				Double[][] out = temp.getOutputs();
+				double[][] inp = temp.getInputs();
+				double[][] out = temp.getOutputs();
 
 				// for(int j = 0; j < 16; j++) {
 				// 	System.out.println("IN");
@@ -42,64 +42,64 @@ public class IO {
 	}
 
 
-	private static Double[] addAcid(String acid) {
-		Double[] ret;
+	private static double[] addAcid(String acid) {
+		double[] ret;
 		switch(acid) {
-			case "E": ret = new Double[]{1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "E": ret = new double[]{1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "I": ret = new Double[]{0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "I": ret = new double[]{0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "N": ret = new Double[]{0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "N": ret = new double[]{0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "L": ret = new Double[]{0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "L": ret = new double[]{0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "K": ret = new Double[]{0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "K": ret = new double[]{0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "S": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "S": ret = new double[]{0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "G": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "G": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "M": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "M": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "F": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "F": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "R": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "R": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "V": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "V": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "Y": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "Y": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "Q": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "Q": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "P": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "P": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "C": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "C": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "H": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0};
+			case "H": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "W": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0};
+			case "W": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0};
 			break;
-			case "T": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0};
+			case "T": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0};
 			break;
-			case "D": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0};
+			case "D": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0};
 			break;
-			case "A": ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0};
+			case "A": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0};
 			break;
-			default: ret = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+			default: ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
 		}
 		return ret;
 	}
 
-	private static Double[] addOutput(String output) {
-		Double[] ret;
+	private static double[] addOutput(String output) {
+		double[] ret;
 		switch(output) {
-			case "e": ret = new Double[]{1.0,0.0,0.0};
+			case "e": ret = new double[]{1.0,0.0,0.0};
 			break;
-			case "h": ret = new Double[]{0.0,1.0,0.0};
+			case "h": ret = new double[]{0.0,1.0,0.0};
 			break;
-			case "-": ret = new Double[]{0.0,0.0,1.0};
+			case "-": ret = new double[]{0.0,0.0,1.0};
 			break;
-			default: ret = new Double[]{0.0,0.0,0.0};
+			default: ret = new double[]{0.0,0.0,0.0};
 			;
 		}
 		return ret;
@@ -126,8 +126,8 @@ public class IO {
 		int trueCount = 0;
 		int numProteins = 1;
 		boolean beginning = true;
-		ArrayList<Double[]> temp = new ArrayList<Double[]>();
-		ArrayList<Double[]> tempOutputs = new ArrayList<Double[]>();
+		ArrayList<double[]> temp = new ArrayList<double[]>();
+		ArrayList<double[]> tempOutputs = new ArrayList<double[]>();
 		ArrayList<Protein> training = new ArrayList<Protein>();
 		ArrayList<Protein> tuning = new ArrayList<Protein>();
 		ArrayList<Protein> testing = new ArrayList<Protein>();
@@ -155,8 +155,8 @@ public class IO {
 			if((line.equals("end") || line.equals("<end>")) || (line.equals("<>") && !beginning) && linecount > 1) {
 
 				Protein prot = new Protein(linecount, temp, tempOutputs);
-				temp = new ArrayList<Double[]>();
-				tempOutputs = new ArrayList<Double[]>();
+				temp = new ArrayList<double[]>();
+				tempOutputs = new ArrayList<double[]>();
 				linecount = 0;
 				numProteins++;
 				beginning = true;
@@ -196,32 +196,33 @@ public class IO {
 }
 
 class Window {
-	private final Double[][] inputs;
-	private final Double[][] target_outputs;
+	private final double[][] inputs;
+	private final double[][] target_outputs;
 
 
-	public Window(Double[][] in, Double[][] out) {
+	public Window(double[][] in, double[][] out) {
 		this.inputs = in;
 		this.target_outputs = out;
 	}
 
-	public Double[][] getInputs() {
+	public double[][] getInputs() {
 		return this.inputs;
 	}
 
-	public Double[][] getOutputs() {
+	public double[][] getOutputs() {
 		return this.target_outputs;
 	}
 }
 
 class Protein {
+	
 	public final int num_acids;
-	private final ArrayList<Double[]> acids;
-	private final ArrayList<Double[]> target_outputs;
+	private final ArrayList<double[]> acids;
+	private final ArrayList<double[]> target_outputs;
 	private int top, bottom, middle;
 
 
-	public Protein(int aminoacids, ArrayList<Double[]> acids, ArrayList<Double[]> outputs) {
+	public Protein (int aminoacids, ArrayList<double[]> acids, ArrayList<double[]> outputs) {
 		this.num_acids = aminoacids;
 		this.acids = acids;
 		this.target_outputs = outputs;
@@ -249,11 +250,11 @@ class Protein {
 	}
 
 
-	public ArrayList<Double[]> getAcid(){
+	public ArrayList<double[]> getAcid(){
 		return this.acids;
 	}
 
-	public ArrayList<Double[]> getOutputs(){
+	public ArrayList<double[]> getOutputs(){
 		return this.target_outputs;
 	}
 
@@ -276,20 +277,14 @@ class Protein {
 		if (top == num_acids-1) {
 			return null;
 		}
-		Double[][] in = new Double[17][21];
-		Double[][] out = new Double[17][3];
+		double[][] in = new double[17][21];
+		double[][] out = new double[17][3];
 		int k = 0;
-
-		// for(int i = this.bottom; i < this.top; i++){
-		// 	in[k] = this.getAcid().get()
-		// }
-
-
 
 		if(this.bottom < 0) {
 			for(int i = this.bottom; i < 0; i++){
-				in[k] = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
-				out[k] = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+				out[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
 				k++;
 			}
 
@@ -306,8 +301,8 @@ class Protein {
 				k++;
 			}
 			while(k<17) {
-				in[k] = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
-				out[k] = new Double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+				out[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
 				k++;
 			}
 		} else {
