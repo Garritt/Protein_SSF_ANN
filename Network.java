@@ -31,6 +31,36 @@ public class Network {
 		
 	}
 	
+	double [] feed_forward (Window window) {
+		
+		double[][] inputs = window.getInputs();
+		int true_output_sz = window.getOutputs()[8].length; 
+		
+		// Initialize input Layer with Window 
+		ArrayList<Neuron> input_units = input_layer.getLayer();
+		for (int k = 0; k < input_units.size(); k++) {	
+			input_units.get(k).setInputUnits(inputs[k]);
+		}
+		// feed forward through all hidden layers
+		for (int g = 0; g < this.hidden_layers.size(); g++) {
+			Layer h_layer = this.hidden_layers.get(g);
+			// All hidden units in this layer
+			for (Neuron h_unit : h_layer.getLayer()) {
+				h_unit.activate();
+			}
+		}		
+		// feed forward to output layer. Also calculate total squared error
+		//double total_err = 0;
+		double [] network_output = new double [true_output_sz];
+		for (int g = 0; g < output_layer.getLayer().size(); g++) {
+			Neuron output_unit = output_layer.getLayer().get(g);
+			output_unit.activate();
+			network_output[g] = output_unit.getOutput();
+			//total_err += Math.pow((true_output[g] - network_output[g]), 2);
+		}	
+		return network_output;
+	}
+	
 	void run (int epochs, double minError, DataSets data) {
 		
 		ArrayList<Protein> train = data.getTrain();
@@ -38,37 +68,12 @@ public class Network {
 		ArrayList<Protein> test = data.getTest();
 		double error = 1;
 		
-		for (int i = 0; i < epochs && error > minError; i++) {
-			// Start Forward Feed
+		for (int i = 0; i < epochs && error > minError; i++) {	
 			for (Protein prot : train) {
-				
 				// entire input window for this example set
 				Window window = prot.getWindow();
-				double[][] inputs = window.getInputs();
-				double[] true_output = window.getOutputs()[8]; // Output Based on nucleation site, always 9th in window
-				
-				// Initialize input Layer with Window 
-				ArrayList<Neuron> input_units = input_layer.getLayer();
-				for (int k = 0; k < input_units.size(); k++) {	
-					input_units.get(k).setInputUnits(inputs[k]);
-				}
-				// feed forward through all hidden layers
-				for (int g = 0; g < this.hidden_layers.size(); g++) {
-					Layer h_layer = this.hidden_layers.get(g);
-					// All hidden units in this layer
-					for (Neuron h_unit : h_layer.getLayer()) {
-						h_unit.activate();
-					}
-				}		
-				// feed forward to output layer. Also calculate total squared error
-				//double total_err = 0;
-				double [] network_output = new double [true_output.length];
-				for (int g = 0; g < output_layer.getLayer().size(); g++) {
-					Neuron output_unit = output_layer.getLayer().get(g);
-					output_unit.activate();
-					network_output[g] = output_unit.getOutput();
-					//total_err += Math.pow((true_output[g] - network_output[g]), 2);
-				}
+				double [] true_output = window.getOutputs()[8]; // Output Based on nucleation site, always 9th in window
+				double [] network_output = feed_forward(window);
 				back_propagation(network_output, true_output, .05);
 			}
 		// EARLY STOPPING STUFF HERE
