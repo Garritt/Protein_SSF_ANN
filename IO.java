@@ -243,7 +243,7 @@ class Protein {
 			System.out.print(" " + target_outputs.get(i));
 		}
 		System.out.println();
-		System.out.println("######  Size sanity check  ###### ");
+		System.out.println("######  Size sanity check  ###### \nNUM ACIDS: "+ num_acids);
 		System.out.println("Amino Acid Sequence length: " + this.acids.size());
 		System.out.println("Target Output Sequence length: " + target_outputs.size());
 		System.out.println();
@@ -263,18 +263,29 @@ class Protein {
 	}
 
 	private void increaseTop() {
+		// this.printProtein();
 		this.top++;
+
 	}
 	private void increaseBottom() {
 		this.bottom++;
+
 	}
 	private void increaseMiddle() {
 		this.middle++;
+	
+	}
+
+	private void reset() {
+		this.middle = 0;
+		this.top = 9;
+		this.bottom = -8;
 	}
 
 
 	public Window getWindow(){
 		if (top == num_acids-1) {
+			this.reset();
 			return null;
 		}
 		double[][] in = new double[17][21];

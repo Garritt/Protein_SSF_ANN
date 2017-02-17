@@ -118,7 +118,7 @@ public class Network {
 				}
 			}
 			// Early Stopping. Check against tune.
-			if (epochs % 2 == 0) {
+			if (i % 2 == 0) {
 				double naive_accuracy = 0;
 				double correct = 0;
 				double total = 0;
@@ -136,7 +136,7 @@ public class Network {
 					}
 				}
 				naive_accuracy = correct / total;
-				System.out.println("Naive Accuracy TUNE after epoch " + epochs + ": " + naive_accuracy);
+				System.out.println("Naive Accuracy TUNE after epoch " + i + ": " + naive_accuracy);
 			}
 		}
 		
