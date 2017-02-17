@@ -85,7 +85,7 @@ public class IO {
 			break;
 			case "A": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0};
 			break;
-			default: ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+			default: ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 		}
 		return ret;
 	}
@@ -93,11 +93,11 @@ public class IO {
 	private static double[] addOutput(String output) {
 		double[] ret;
 		switch(output) {
-			case "e": ret = new double[]{1.0,0.0,0.0};
+			case "e": ret = new double[]{0.0,1.0,0.0};
 			break;
-			case "h": ret = new double[]{0.0,1.0,0.0};
+			case "h": ret = new double[]{0.0,0.0,1.0};
 			break;
-			case "_": ret = new double[]{0.0,0.0,1.0};
+			case "_": ret = new double[]{1.0,0.0,0.0};
 			break;
 			default: ret = new double[]{0.0,0.0,0.0};
 			;
@@ -294,8 +294,8 @@ class Protein {
 
 		if(this.bottom < 0) {
 			for(int i = this.bottom; i < 0; i++){
-				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
-				out[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+				out[k] = new double[]{0.0,0.0,0.0};
 				k++;
 				if(out[8].length > 3) {
 					System.out.println("Shits fucked");
@@ -311,7 +311,7 @@ class Protein {
 				}
 			}
 
-		} else if ((this.num_acids - this.top) < 7) {
+		} else if (((this.num_acids-2) - this.top) < 7) {
 			for(int j = this.top; j < this.acids.size(); j++) {
 				in[k] = this.getAcid().get(j);
 				out[k] = this.getOutputs().get(j);
@@ -321,7 +321,7 @@ class Protein {
 				}
 			}
 			while(k<17) {
-				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 				out[k] = new double[]{0.0,0.0,0.0};
 				k++;
 				if(out[8].length > 3) {

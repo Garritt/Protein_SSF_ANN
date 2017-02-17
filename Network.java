@@ -249,6 +249,6 @@ public class Network {
 		// Network Config
 		int [] hl_units = {10};
 		Network ANN = new Network(17, 3, 1, hl_units);
-		ANN.run(1000, .37, data);
+		ANN.run(10000, .37, data);
 	}	
 }
