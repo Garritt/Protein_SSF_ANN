@@ -284,7 +284,8 @@ class Protein {
 
 
 	public Window getWindow(){
-		if (top == num_acids-2) {                 ////// possible error
+		// System.out.println("NUM ACIDS - 2: " + (num_acids-2) + "\nthis.middle: " + this.middle);
+		if (this.middle == (num_acids-2)) {                 ////// possible error
 			this.reset();
 			return null;
 		}
@@ -292,54 +293,61 @@ class Protein {
 		double[][] out = new double[17][3];
 		int k = 0;
 
-		if(this.bottom < 0) {
+		if(this.bottom < 0 && (this.num_acids-2-this.top > 8)) {
 			for(int i = this.bottom; i < 0; i++){
 				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 				out[k] = new double[]{0.0,0.0,0.0};
 				k++;
-				if(out[8].length > 3) {
-					System.out.println("Shits fucked");
-				}
+				
 			}
 
 			for(int j = 0; j < this.top; j++) {
+				// System.out.println("K:  "+ k +" this.top: " + this.top);
+				// System.out.println("J: " + j + " acid.size(): " + this.getAcid().size());
 				in[k] = this.getAcid().get(j);
 				out[k] = this.getOutputs().get(j);
 				k++;
-				if(out[8].length > 3) {
-					System.out.println("Shits fucked");
-				}
+				
 			}
 
-		} else if (((this.num_acids-2) - this.top) < 7) {
+		} else if (((this.num_acids-2) - this.top) < 8) {
 			for(int j = this.top; j < this.acids.size(); j++) {
 				in[k] = this.getAcid().get(j);
 				out[k] = this.getOutputs().get(j);
 				k++;
-				if(out[8].length > 3) {
-					System.out.println("Shits fucked");
-				}
+				
 			}
 			while(k<17) {
 				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 				out[k] = new double[]{0.0,0.0,0.0};
 				k++;
-				if(out[8].length > 3) {
-					System.out.println("Shits fucked");
-				}
+				
 			}
+		} else if (this.bottom < 0 && (this.num_acids-2-this.top < 8)) {
+			for(int i = this.bottom; i < 0; i++) {
+				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+				out[k] = new double[]{0.0,0.0,0.0};
+				k++;
+			}
+			for(int i = 0; i < this.num_acids-2; i++) {
+				in[k] = this.getAcid().get(i);
+				out[k] = this.getOutputs().get(i);
+				k++;
+			}
+			while(k<17) {
+				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+				out[k] = new double[]{0.0,0.0,0.0};
+				k++;
+			}
+
 		} else {
 			for (int j = this.bottom; j < this.top; j++){
+				// System.out.println(k);
 				in[k] = this.getAcid().get(j);
 				out[k] = this.getOutputs().get(j);
 				k++;
-				if(out[8].length > 3) {
-					System.out.println("Shits fucked");
-				}
+				
 			}
-		}
-		if(out[8].length > 3) {
-			System.out.println("Shits fucked");
 		}
 		Window window = new Window(in, out);
 		// System.out.print("\t\t\t\t\t\t");
