@@ -4,7 +4,7 @@ public class Neuron {
 
 	// constant Bias edge weight 
 	final double bias = -1;
-	Edge bias_edge;
+	Edge bias_edge = null;
 	
 	// All Inputs to the neuron 
 	ArrayList<Edge> input_edges = new ArrayList<Edge>();
@@ -32,6 +32,18 @@ public class Neuron {
 	public void setOutput(double o) {
 		this.output = o;
 	}
+	public Edge get_edge (int neuron_id) {
+		return edge_lookup.get(neuron_id);
+	}
+	public ArrayList<Edge> getInputEdges() {
+		return input_edges;
+	}
+	public void sumError(double error) {
+		this.error += error;
+	}
+	public void clearError() {
+		this.error = 0;
+	}
 	public void setInputUnits(double [] in) {
 		// SETTING THE INPUT NEURON'S OUTPUT AS INDEX OF "ONE HOT SPOT" .. POSSIBLE ERROR
 		for (int i = 0; i < in.length; i++){
@@ -41,21 +53,7 @@ public class Neuron {
 			}
 		}
 	}
-	public Edge get_edge (int neuron_id) {
-		return edge_lookup.get(neuron_id);
-	}
-	public ArrayList<Edge> getInputEdges() {
-		return input_edges;
-	}
 	
-	public void sumError(double error) {
-		this.error += error;
-	}
-	
-	public void clearError() {
-		this.error = 0;
-	}
-
 	// This combination wont actually help our network as the activation functions are 
 	public void activate() {
 		
@@ -71,12 +69,12 @@ public class Neuron {
 				sum = sum + (weight * prev_output);
 			}	
 			sum = sum + (bias_edge.get_weight() * bias);
+			//System.out.println("bias_w: " + bias_edge.get_weight());
 			// Sigmoid Activation function
 			this.output = 1.0/ (1.0 + Math.exp(-sum));
 		}
 	}
 		
-	
 	/*
 	 * Add edges from previous layer of neurons to this Neuron. 
 	 * Includes initialization of bias edge. 
@@ -93,6 +91,7 @@ public class Neuron {
 		}
 		Edge edge_bias = new Edge(bias, this);
 		bias_edge = edge_bias;
+		edge_bias.set_rand_w(-1, 1);
 		input_edges.add(bias_edge);
 	}
 }

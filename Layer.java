@@ -26,7 +26,7 @@ public class Layer {
 			Neuron n = new Neuron(type);
 			layer.add(n);
 			if (!input_layer) {
-				Neuron bias = new Neuron(type);
+				Neuron bias = new Neuron(Neuron_Type.BIAS);
 				n.construct_In_Edges(prevL, bias);
 			}
 		}

@@ -284,7 +284,7 @@ class Protein {
 
 
 	public Window getWindow(){
-		if (top == num_acids-1) {
+		if (top == num_acids-2) {                 ////// possible error
 			this.reset();
 			return null;
 		}
@@ -297,12 +297,18 @@ class Protein {
 				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
 				out[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
 				k++;
+				if(out[8].length > 3) {
+					System.out.println("Shits fucked");
+				}
 			}
 
 			for(int j = 0; j < this.top; j++) {
 				in[k] = this.getAcid().get(j);
 				out[k] = this.getOutputs().get(j);
 				k++;
+				if(out[8].length > 3) {
+					System.out.println("Shits fucked");
+				}
 			}
 
 		} else if ((this.num_acids - this.top) < 7) {
@@ -310,18 +316,30 @@ class Protein {
 				in[k] = this.getAcid().get(j);
 				out[k] = this.getOutputs().get(j);
 				k++;
+				if(out[8].length > 3) {
+					System.out.println("Shits fucked");
+				}
 			}
 			while(k<17) {
 				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
-				out[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+				out[k] = new double[]{0.0,0.0,0.0};
 				k++;
+				if(out[8].length > 3) {
+					System.out.println("Shits fucked");
+				}
 			}
 		} else {
 			for (int j = this.bottom; j < this.top; j++){
 				in[k] = this.getAcid().get(j);
 				out[k] = this.getOutputs().get(j);
 				k++;
+				if(out[8].length > 3) {
+					System.out.println("Shits fucked");
+				}
 			}
+		}
+		if(out[8].length > 3) {
+			System.out.println("Shits fucked");
 		}
 		Window window = new Window(in, out);
 		// System.out.print("\t\t\t\t\t\t");

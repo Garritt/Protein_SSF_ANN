@@ -28,35 +28,105 @@ public class Network {
 	
 	
 	
-	void back_propagation (double [] network_output, double [] target_output, double alpha) {
+	void back_propagation (double [] network_output, double [] target_output, double alpha, double momentum) {
 
+//		// Output Layer
+//		int x = 0;
+//		for (int i = 0; i < output_layer.layer.size(); i++) {
+//			Neuron output_n = output_layer.layer.get(i);
+//			output_n.sumError((network_output[x])*(1-network_output[x])*(target_output[x]-network_output[x]));
+//			ArrayList<Edge> edges = output_n.getInputEdges();
+//			for (int j = 0; j < edges.size(); j++) {
+//				Neuron input_neuron = edges.get(j).get_N_IN();
+//				double output_hu = input_neuron.getOutput();
+//				double output_o = output_n.getOutput();
+//				double d_output = target_output[i];
+//				double delta = -(output_o) * (1 - output_o) * output_hu * (d_output - output_o);
+//				double delta_w = -(alpha) * (delta);
+//				double weight_new = edges.get(j).get_weight() + delta_w;
+//				//input_neuron.sumError(weight_new*output_n.getError());
+//				edges.get(j).set_weight(weight_new + (momentum)*(edges.get(j).get_prev_delta_weight()));
+//				edges.get(j).set_prev_delta(delta_w);
+//			}
+//			x++;
+//		}
+//		// All hidden layers
+//		for (int i = 0; i < hidden_layers.size(); i++) {
+//			// One hidden Layer
+//			for (int j = 0; j < hidden_layers.get(i).layer.size(); j++) {
+//				Neuron hidden_u = hidden_layers.get(i).layer.get(j);
+//				ArrayList<Edge> edges = hidden_u.getInputEdges();
+//				for (int k = 0; k < edges.size(); k++) {
+//					double out_hu = hidden_u.getOutput();
+//					double input_unit_output = edges.get(k).get_N_IN().getOutput();
+//					double sumError = 0;
+//					for (int m = 0; m < this.output_layer.layer.size(); m++) {
+//						Neuron output_n = this.output_layer.layer.get(m);
+//						double wjk = output_n.get_edge(hidden_u.id).get_weight();
+//						double desired_out = target_output[m];
+//						double ak = output_n.getOutput();
+//						sumError = sumError + (-(desired_out - ak) * ak * (1 - ak) * wjk);
+//					}
+//					double delta = out_hu * (1 - out_hu) * input_unit_output * sumError;
+//					double delta_w = -(alpha) * (delta);
+//					double weight_new = edges.get(k).get_weight() + delta_w;
+//					edges.get(k).set_weight((weight_new + (momentum)*(edges.get(k).get_prev_delta_weight())));
+//					edges.get(k).set_prev_delta(delta_w);
+//				}
+//			}
+//		}
+		
 		// Output Layer
 		for (int i = 0; i < output_layer.layer.size(); i++) {
 			Neuron output_n = output_layer.layer.get(i);
 			ArrayList<Edge> edges = output_n.getInputEdges();
 			for (int j = 0; j < edges.size(); j++) {
-				Neuron input_neuron = edges.get(j).get_N_IN();				
-				double delta = -(target_output[i] - network_output[i]) * network_output[i] * (1 - network_output[i]) * input_neuron.getOutput();    // POSSIBLE ERROR
-				edges.get(j).weight = edges.get(j).weight - (alpha * delta);
-				input_neuron.sumError(delta * edges.get(j).get_weight());
+				Neuron hidden_neuron = edges.get(j).get_N_IN();				
+				double delta = -network_output[i] * (1 - network_output[i]) * hidden_neuron.getOutput() * (target_output[i] - network_output[i]);     // POSSIBLE ERROR
+				double w_change = -alpha * delta;
+				edges.get(j).setPrev_delta_weight(w_change);
+				edges.get(j).set_weight(edges.get(j).get_weight() + w_change);
+				hidden_neuron.sumError(delta * edges.get(j).get_weight());
 			}
 		}
 		// All hidden layers
-		for (int i = 0; i < hidden_layers.size(); i++) {
+		for (int i = hidden_layers.size(); i > 0; i--) {
 			// One hidden Layer
-			for (int j = 0; j < hidden_layers.get(i).layer.size(); j++) {
-				Neuron hidden_u = hidden_layers.get(i).layer.get(j);
+			for (int j = 0; j < hidden_layers.get(i-1).layer.size(); j++) {
+				Neuron hidden_u = hidden_layers.get(i-1).layer.get(j);
 				ArrayList<Edge> edges = hidden_u.getInputEdges();
 				// Edges of this Hidden Layers
 				for (int k = 0; k < edges.size(); k ++) {
 					Neuron input_neuron = edges.get(k).get_N_IN();
 					double delta = hidden_u.getOutput() * (1 - hidden_u.getOutput()) * hidden_u.error * input_neuron.getOutput();  // POSSIBLE ERROR
-					edges.get(k).weight = edges.get(k).weight - (alpha * delta);
+					double w_change = -alpha * delta;
+					edges.get(k).setPrev_delta_weight(w_change);
+					edges.get(k).set_weight(edges.get(k).get_weight() + w_change + (momentum * edges.get(k).get_prev_delta_weight()));
 				}
 				hidden_u.clearError();
 			}
 		}
 		
+	}
+	
+	void resetMomentum() {
+		ArrayList<Neuron> output_nodes = output_layer.getLayer();
+		for(int i = 0; i < output_nodes.size(); i++) {
+			ArrayList<Edge> in_edges = output_nodes.get(i).getInputEdges();
+			for(int j = 0; j < in_edges.size(); j++) {
+				in_edges.get(j).reset();
+			}
+		}
+		
+		for(int i = 0; i < hidden_layers.size(); i++) { //backprop! go backwards
+			ArrayList<Neuron> in_nodes = hidden_layers.get(i).getLayer();
+			for(int j = 0; j < in_nodes.size(); j++) {
+				ArrayList<Edge> in_edges = in_nodes.get(j).getInputEdges();
+				for(int k = 0; k < in_edges.size(); k++) {
+					in_edges.get(k).reset();
+				}
+			}
+		}
 	}
 	
 	/*
@@ -67,6 +137,10 @@ public class Network {
 	public double [] feed_forward (Window window) {
 		
 		double[][] inputs = window.getInputs();
+		if(window.getOutputs()[8].length > 3){
+			int temp = window.getOutputs()[8].length;
+			System.out.println(temp);
+		}
 		int true_output_sz = window.getOutputs()[8].length; 
 		
 		// Initialize input Layer with Window 
@@ -113,8 +187,7 @@ public class Network {
 						System.err.println("Network Output Vector Inbalance");
 						System.exit(1);
 					}
-					back_propagation(network_output, true_output, .05);
-					// neet to reset errors here
+					back_propagation(network_output, true_output, .05, 0.9);
 				}
 			}
 			// Early Stopping. Check against tune.
@@ -138,6 +211,7 @@ public class Network {
 				naive_accuracy = correct / total;
 				System.out.println("Naive Accuracy TUNE after epoch " + i + ": " + naive_accuracy);
 			}
+			this.resetMomentum();
 		}
 		
 	}
@@ -163,6 +237,7 @@ public class Network {
 				net_max_idx = i;
 			}
 		}
+		//System.out.println("target idx: " + true_idx + " netout idx: "+ net_max_idx);
 		if (net_max_idx == true_idx) {
 			return true;
 		}
@@ -174,6 +249,6 @@ public class Network {
 		// Network Config
 		int [] hl_units = {10};
 		Network ANN = new Network(17, 3, 1, hl_units);
-		ANN.run(10, .37, data);
+		ANN.run(1000, .37, data);
 	}	
 }
