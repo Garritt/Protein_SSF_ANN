@@ -169,12 +169,13 @@ public class Network {
 	}
 	
 	public void run (int epochs, double minError, DataSets data) {
+		
 		ArrayList<Protein> train = data.getTrain();
 		ArrayList<Protein> tune = data.getTune();
 		ArrayList<Protein> test = data.getTest();
-		double error = 1;
 		
-		for (int i = 0; i < epochs && error > minError; i++) {	
+		// Training Epochs
+		for (int i = 0; i < epochs; i++) {	
 			// Training on this Protein. One Protein provides many training examples
 			for (Protein prot : train) {
 				Window window;
@@ -210,10 +211,30 @@ public class Network {
 				}
 				naive_accuracy = correct / total;
 				System.out.println("Naive Accuracy TUNE after epoch " + i + ": " + naive_accuracy);
+				if (naive_accuracy > 1.0 - minError) {
+					break;
+				}
 			}
 			this.resetMomentum();
 		}
-		
+		double naive_accuracy;
+		double correct = 0;
+		double total = 0;
+		for (Protein prot : test ) {
+			total+=prot.num_acids;
+			Window window;
+			while ((window = prot.getWindow()) != null) {
+				// input window example for this amino acid
+				// Window window = prot.getWindow();
+				double [] true_output = window.getOutputs()[8];
+				double [] network_output = feed_forward(window);
+				if (assess_network_output(true_output, network_output) == true) {
+					correct++;
+				}
+			}
+		}
+		naive_accuracy = correct / total;
+		System.out.println("\n\nNaive Accuracy Test: " + naive_accuracy);
 	}
 	
 	/*
@@ -249,6 +270,6 @@ public class Network {
 		// Network Config
 		int [] hl_units = {10};
 		Network ANN = new Network(17, 3, 1, hl_units);
-		ANN.run(1000, .37, data);
+		ANN.run(1000, .4, data);
 	}	
 }
