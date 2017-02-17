@@ -15,6 +15,7 @@ public class Neuron {
 	final public int id;
 	final private Neuron_Type type;
 	private double output;
+	double error;
 	
 	public Neuron (Neuron_Type type) {
 		this.type = type;
@@ -43,8 +44,16 @@ public class Neuron {
 	public Edge get_edge (int neuron_id) {
 		return edge_lookup.get(neuron_id);
 	}
-	public ArrayList<Edge> getInputLayer() {
+	public ArrayList<Edge> getInputEdges() {
 		return input_edges;
+	}
+	
+	public void sumError(double error) {
+		this.error += error;
+	}
+	
+	public void clearError() {
+		this.error = 0;
 	}
 
 	// This combination wont actually help our network as the activation functions are 
@@ -66,42 +75,7 @@ public class Neuron {
 			this.output = 1.0/ (1.0 + Math.exp(-sum));
 		}
 	}
-	
-//	/*
-//	 * Passes Weighted linear Sum to Activation function
-//	 * 
-//	 * */
-//	public void calc_output(){
-//		double sum = 0;
-//		for (Edge e : input_edges) {
-//			Neuron in = e.get_N_IN();
-//			double weight = e.get_weight();
-//			double prev_output = in.output;
-//			sum = sum + (weight * prev_output);
-//		}
-//		sum = sum + (bias_edge.get_weight() * bias);
-//		// Sigmoid Activation function
-//		this.output = 1.0/ (1.0 + Math.exp(-sum));
-//	}
-//	
-//	/* Specific output for ReLU in input layer*/
-//	public void calc_output_input_layer() {
-//		double sum = 0;
-//		for (Edge e : input_edges) {
-//			Neuron in = e.get_N_IN();
-//			double weight = e.get_weight();
-//			double [] input = in.inputs;
-//			for (int i = 0; i < input.length; i++) {
-//				if (input[i] == 1) {
-//					sum = sum + (weight * i); 			// POSSIBLE ERROR HERE. WE USE THE INDEX OF "ONE HOT SPOT" * weight.
-//					break;
-//				}
-//			}
-//		}
-//		// ReLU activation function
-//		this.output = Double.max(0, sum);
-//	}
-	
+		
 	
 	/*
 	 * Add edges from previous layer of neurons to this Neuron. 

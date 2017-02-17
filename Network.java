@@ -3,7 +3,7 @@ import java.util.*;
 public class Network {
 
 	Layer input_layer, output_layer;
-	ArrayList<Layer> hidden_layers; 
+	ArrayList<Layer> hidden_layers = new ArrayList<Layer>(); 
 	
 	public Network (int input_n, int output_n, int h_layers, int [] hu_per_layer) {
 		
@@ -26,7 +26,36 @@ public class Network {
 		output_layer.addNeurons(output_n, prevL, Neuron_Type.OUTPUT);
 	}
 	
-	void back_propagation (double [] network_output, double [] true_output, double alpha) {
+	
+	
+	void back_propagation (double [] network_output, double [] target_output, double alpha) {
+
+		// Output Layer
+		for (int i = 0; i < output_layer.layer.size(); i++) {
+			Neuron output_n = output_layer.layer.get(i);
+			ArrayList<Edge> edges = output_n.getInputEdges();
+			for (int j = 0; j < edges.size(); j++) {
+				Neuron input_neuron = edges.get(j).get_N_IN();				
+				double delta = -(target_output[i] - network_output[i]) * network_output[i] * (1 - network_output[i]) * input_neuron.getOutput();    // POSSIBLE ERROR
+				edges.get(j).weight = edges.get(j).weight - (alpha * delta);
+				input_neuron.sumError(delta * edges.get(j).get_weight());
+			}
+		}
+		// All hidden layers
+		for (int i = 0; i < hidden_layers.size(); i++) {
+			// One hidden Layer
+			for (int j = 0; j < hidden_layers.get(i).layer.size(); j++) {
+				Neuron hidden_u = hidden_layers.get(i).layer.get(j);
+				ArrayList<Edge> edges = hidden_u.getInputEdges();
+				// Edges of this Hidden Layers
+				for (int k = 0; k < edges.size(); k ++) {
+					Neuron input_neuron = edges.get(k).get_N_IN();
+					double delta = hidden_u.getOutput() * (1 - hidden_u.getOutput()) * hidden_u.error * input_neuron.getOutput();  // POSSIBLE ERROR
+					edges.get(k).weight = edges.get(k).weight - (alpha * delta);
+				}
+				hidden_u.clearError();
+			}
+		}
 		
 	}
 	
@@ -35,7 +64,7 @@ public class Network {
 	 *  Returns the network_output.
 	 * 
 	 * */
-	double [] feed_forward (Window window) {
+	public double [] feed_forward (Window window) {
 		
 		double[][] inputs = window.getInputs();
 		int true_output_sz = window.getOutputs()[8].length; 
@@ -65,18 +94,19 @@ public class Network {
 		return network_output;
 	}
 	
-	void run (int epochs, double minError, DataSets data) {
+	public void run (int epochs, double minError, DataSets data) {
 		ArrayList<Protein> train = data.getTrain();
-		ArrayList<Protein> tune = data.getTrain();
+		ArrayList<Protein> tune = data.getTune();
 		ArrayList<Protein> test = data.getTest();
 		double error = 1;
 		
 		for (int i = 0; i < epochs && error > minError; i++) {	
 			// Training on this Protein. One Protein provides many training examples
 			for (Protein prot : train) {
-				for (int j = 0; j < prot.num_acids; j++) {	
+				Window window;
+				while((window = prot.getWindow()) != null) {
 					// input window example for this amino acid
-					Window window = prot.getWindow();
+					// Window window = prot.getWindow();
 					double [] true_output = window.getOutputs()[8]; // Output Based on nucleation site, always 9th in window
 					double [] network_output = feed_forward(window);
 					if (true_output.length != network_output.length) {
@@ -84,6 +114,7 @@ public class Network {
 						System.exit(1);
 					}
 					back_propagation(network_output, true_output, .05);
+					// neet to reset errors here
 				}
 			}
 			// Early Stopping. Check against tune.
@@ -93,9 +124,10 @@ public class Network {
 				double total = 0;
 				for (Protein prot : tune) {
 					total += prot.num_acids;
-					for (int j = 0; j < prot.num_acids; j++) {	
+					Window window;
+					while ((window = prot.getWindow()) != null) {
 						// input window example for this amino acid
-						Window window = prot.getWindow();
+						// Window window = prot.getWindow();
 						double [] true_output = window.getOutputs()[8];
 						double [] network_output = feed_forward(window);
 						if (assess_network_output(true_output, network_output) == true) {
@@ -138,8 +170,7 @@ public class Network {
 	}
 	
 	public static void main (String args[]) {		
-		IO in = new IO();
-		DataSets data = in.readFile(args[0]);
+		DataSets data = IO.readFile(args[0]);
 		// Network Config
 		int [] hl_units = {10};
 		Network ANN = new Network(17, 3, 1, hl_units);

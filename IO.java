@@ -7,39 +7,39 @@ public class IO {
 	// double[][] set = new double[128][21];
 
 
-	public static void main(String[] args) {
-		DataSets in = readFile(args[0]);
-
-		// attempting to get window
-		System.out.println("window attempt");
-		int count = 0;
-		for (int i = 0; i < in.getTrain().size()-1; i++) {
-			
-			count++;
-
-			while(in.getTrain().get(i).getWindow() != null){
-				
-				// System.out.println(count);
-				Window temp = in.getTrain().get(i).getWindow();
-				if(temp == null) {
-					continue;
-				}
-				// System.out.println("Protein: " + count);
-				double[][] inp = temp.getInputs();
-				double[][] out = temp.getOutputs();
-
-				// for(int j = 0; j < 16; j++) {
-				// 	System.out.println("IN");
-				// 	for(int k = 0; k < inp[j].length; k++) {
-				// 		System.out.print(inp[j][k] + " ");
-				// 	}
-				// 	for(int k = 0; k < out[j].length; k++) {
-				// 		System.out.print(out[j][k] + " ");
-				// 	}
-				// }
-			}
-		}
-	}
+//	public static void main(String[] args) {
+//		DataSets in = readFile(args[0]);
+//
+//		// attempting to get window
+//		System.out.println("window attempt");
+//		int count = 0;
+//		for (int i = 0; i < in.getTrain().size()-1; i++) {
+//			
+//			count++;
+//
+//			while(in.getTrain().get(i).getWindow() != null){
+//				
+//				// System.out.println(count);
+//				Window temp = in.getTrain().get(i).getWindow();
+//				if(temp == null) {
+//					continue;
+//				}
+//				// System.out.println("Protein: " + count);
+//				double[][] inp = temp.getInputs();
+//				double[][] out = temp.getOutputs();
+//
+//				// for(int j = 0; j < 16; j++) {
+//				// 	System.out.println("IN");
+//				// 	for(int k = 0; k < inp[j].length; k++) {
+//				// 		System.out.print(inp[j][k] + " ");
+//				// 	}
+//				// 	for(int k = 0; k < out[j].length; k++) {
+//				// 		System.out.print(out[j][k] + " ");
+//				// 	}
+//				// }
+//			}
+//		}
+//	}
 
 
 	private static double[] addAcid(String acid) {
@@ -97,7 +97,7 @@ public class IO {
 			break;
 			case "h": ret = new double[]{0.0,1.0,0.0};
 			break;
-			case "-": ret = new double[]{0.0,0.0,1.0};
+			case "_": ret = new double[]{0.0,0.0,1.0};
 			break;
 			default: ret = new double[]{0.0,0.0,0.0};
 			;
@@ -132,7 +132,7 @@ public class IO {
 		ArrayList<Protein> tuning = new ArrayList<Protein>();
 		ArrayList<Protein> testing = new ArrayList<Protein>();
 
-		while(fileScanner.hasNext()) {
+		while (fileScanner.hasNext()) {
 			String line = fileScanner.nextLine().trim();
 			// trueCount++;
 
@@ -226,20 +226,20 @@ class Protein {
 		this.num_acids = aminoacids;
 		this.acids = acids;
 		this.target_outputs = outputs;
-		this.top = 8;
+		this.top = 9;
 		this.middle = 0;
-		this.bottom = -9;
+		this.bottom = -8;
 	}
 
 	public void printProtein() {
 		System.out.println("Amino Acid Sequence");
-		for(int i = 0; i < this.acids.size()-1; i++) {
+		for(int i = 0; i < this.acids.size(); i++) {
 			System.out.print(" " + acids.get(i));
 		}
 		System.out.println();
 		System.out.println("Target Outputs");
 
-		for(int i = 0; i < target_outputs.size()-1; i++) {
+		for(int i = 0; i < target_outputs.size(); i++) {
 			System.out.print(" " + target_outputs.get(i));
 		}
 		System.out.println();
@@ -295,7 +295,7 @@ class Protein {
 			}
 
 		} else if ((this.num_acids - this.top) < 7) {
-			for(int j = this.top; j < this.acids.size()-1; j++) {
+			for(int j = this.top; j < this.acids.size(); j++) {
 				in[k] = this.getAcid().get(j);
 				out[k] = this.getOutputs().get(j);
 				k++;
