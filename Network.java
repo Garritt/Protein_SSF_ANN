@@ -93,10 +93,9 @@ public class Network {
 		double[][] inputs = window.getInputs();
 		if(window.getOutputs()[8].length > 3){
 			int temp = window.getOutputs()[8].length;
-			System.out.println(temp);
+			System.out.println("here");
 		}
 		int true_output_sz = window.getOutputs()[8].length; 
-		
 		// Initialize input Layer with Window 
 		ArrayList<Neuron> input_units = input_layer.getLayer();
 		for (int k = 0; k < input_units.size(); k++) {	
@@ -111,13 +110,11 @@ public class Network {
 			}
 		}		
 		// feed forward to output layer. Also calculate total squared error
-		//double total_err = 0;
 		double [] network_output = new double [true_output_sz];
 		for (int g = 0; g < output_layer.getLayer().size(); g++) {
 			Neuron output_unit = output_layer.getLayer().get(g);
 			output_unit.activate();
 			network_output[g] = output_unit.getOutput();
-			//total_err += Math.pow((true_output[g] - network_output[g]), 2);
 		}	
 		return network_output;
 	}
@@ -193,13 +190,13 @@ public class Network {
  		
 		System.out.println("\n\nConfusion Matrix Data run on TEST\n");
 		clear_print_matrix(cm, 0);
-		System.out.println("\nAccuracy: " + confu_accuracy + "\nError Rate: " + (1 - confu_accuracy));
+		System.out.println("\nAccuracy:  " + confu_accuracy + "\nError Rate: " + (1 - confu_accuracy));
 		System.out.println("\nRecall alpha-helix: " + recall_a);
 		System.out.println("Recall beta-strand: " + recall_b);
 		System.out.println("Recall coil:        " + recall_c);
-		System.out.println("\nPrecision alpha-helix: " + precision_a);
+		System.out.println("\nPrecision alpha-helix:  " + precision_a);
 		System.out.println("Precision beta-strand:  " + precision_b);
-		System.out.println("Precision coil:         " + precision_b);
+		System.out.println("Precision coil:         " + precision_c);
 	}
 	
 	/*
