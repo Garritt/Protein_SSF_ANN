@@ -4,6 +4,7 @@ public class Network {
 
 	Layer input_layer, output_layer;
 	ArrayList<Layer> hidden_layers = new ArrayList<Layer>(); 
+	final double drop_rate = .5;									// Set to 0 for no drop out
 	
 	public Network (int input_n, int output_n, int h_layers, int [] hu_per_layer) {
 		
@@ -44,35 +45,37 @@ public class Network {
 			}
 		}
 		// All hidden layers
-		for (int i = hidden_layers.size(); i > 0; i--) {
+		for (int i = hidden_layers.size(); i > 0; i--) {    // Backprop -- go backwards
 			// One hidden Layer
 			for (int j = 0; j < hidden_layers.get(i-1).layer.size(); j++) {
 				Neuron hidden_u = hidden_layers.get(i-1).layer.get(j);
-				ArrayList<Edge> edges = hidden_u.getInputEdges();
-				// Edges of this Hidden Layers
-				for (int k = 0; k < edges.size(); k ++) {
-					Neuron input_neuron = edges.get(k).get_N_IN();
-					double delta = hidden_u.getOutput() * (1 - hidden_u.getOutput()) * hidden_u.error * input_neuron.getOutput();  // POSSIBLE ERROR
-					double w_change = -alpha * delta;
-					edges.get(k).setPrev_delta_weight(w_change);
-					edges.get(k).set_weight(edges.get(k).get_weight() + w_change + (momentum * edges.get(k).get_prev_delta_weight()));
+				if (hidden_u.getDrop() == false) {								// Drop Out
+					ArrayList<Edge> edges = hidden_u.getInputEdges();
+					// Edges of this Hidden Layers
+					for (int k = 0; k < edges.size(); k ++) {
+						Neuron input_neuron = edges.get(k).get_N_IN();
+						double delta = hidden_u.getOutput() * (1 - hidden_u.getOutput()) * hidden_u.error * input_neuron.getOutput();  // POSSIBLE ERROR
+						double w_change = -alpha * delta;
+						edges.get(k).setPrev_delta_weight(w_change);
+						edges.get(k).set_weight(edges.get(k).get_weight() + w_change + (momentum * edges.get(k).get_prev_delta_weight()));
+					}
+					hidden_u.clearError();
 				}
-				hidden_u.clearError();
 			}
 		}
 		
 	}
 	
 	void resetMomentum() {
+		
 		ArrayList<Neuron> output_nodes = output_layer.getLayer();
-		for(int i = 0; i < output_nodes.size(); i++) {
+		for (int i = 0; i < output_nodes.size(); i++) {
 			ArrayList<Edge> in_edges = output_nodes.get(i).getInputEdges();
 			for(int j = 0; j < in_edges.size(); j++) {
 				in_edges.get(j).reset();
 			}
 		}
-		
-		for(int i = 0; i < hidden_layers.size(); i++) { //backprop! go backwards
+		for(int i = 0; i < hidden_layers.size(); i++) { 
 			ArrayList<Neuron> in_nodes = hidden_layers.get(i).getLayer();
 			for(int j = 0; j < in_nodes.size(); j++) {
 				ArrayList<Edge> in_edges = in_nodes.get(j).getInputEdges();
@@ -91,10 +94,6 @@ public class Network {
 	public double [] feed_forward (Window window) {
 		
 		double[][] inputs = window.getInputs();
-		if(window.getOutputs()[8].length > 3){
-			int temp = window.getOutputs()[8].length;
-			System.out.println("here");
-		}
 		int true_output_sz = window.getOutputs()[8].length; 
 		// Initialize input Layer with Window 
 		ArrayList<Neuron> input_units = input_layer.getLayer();
@@ -106,14 +105,18 @@ public class Network {
 			Layer h_layer = this.hidden_layers.get(g);
 			// All hidden units in this layer
 			for (Neuron h_unit : h_layer.getLayer()) {
-				h_unit.activate();
+				if (h_unit.getDrop() == true){
+					continue;
+				} else {
+					h_unit.activate(drop_rate);
+				}
 			}
 		}		
 		// feed forward to output layer. Also calculate total squared error
 		double [] network_output = new double [true_output_sz];
 		for (int g = 0; g < output_layer.getLayer().size(); g++) {
 			Neuron output_unit = output_layer.getLayer().get(g);
-			output_unit.activate();
+			output_unit.activate(drop_rate);
 			network_output[g] = output_unit.getOutput();
 		}	
 		return network_output;
@@ -132,8 +135,9 @@ public class Network {
 			for (Protein prot : train) {
 				Window window;
 				while((window = prot.getWindow()) != null) {
+					// Set Drop Out Neurons
+					this.setDropN(drop_rate);
 					// input window example for this amino acid
-					// Window window = prot.getWindow();
 					double [] true_output = window.getOutputs()[8]; // Output Based on nucleation site, always 9th in window
 					double [] network_output = feed_forward(window);
 					if (true_output.length != network_output.length) {
@@ -141,6 +145,7 @@ public class Network {
 						System.exit(1);
 					}
 					back_propagation(network_output, true_output, .05, 0.9);
+					this.removeDropN();
 				}
 			}	
 			// Early Stopping. Check against tune.
@@ -199,6 +204,34 @@ public class Network {
 		System.out.println("Precision coil:         " + precision_c);
 	}
 	
+	
+	
+	void setDropN (double drop_rate) {
+		for (int g = 0; g < this.hidden_layers.size(); g++) {
+			Layer h_layer = this.hidden_layers.get(g);
+			// All hidden units in this layer
+			for (Neuron h_unit : h_layer.getLayer()) {
+				double rand = Math.random();
+				if (rand <= drop_rate) {
+					h_unit.setDrop();
+				}
+				//System.out.println(h_unit.getDrop());
+				// could also scale by (1 - droprate) here, but extra complexity I think.
+			}
+			//System.out.println();
+		}
+	}
+	void removeDropN () {
+		for (int g = 0; g < this.hidden_layers.size(); g++) {
+			Layer h_layer = this.hidden_layers.get(g);
+			// All hidden units in this layer
+			for (Neuron h_unit : h_layer.getLayer()) {
+				h_unit.removeDrop();
+			}
+		}
+	}
+	
+	
 	/*
 	 * Assesses one examples network output vs expected output.
 	 * Returns true if network was correct, false otherwise.
@@ -245,7 +278,7 @@ public class Network {
 		// Network Config
 		int [] hl_units = {10};
 		Network ANN = new Network(17, 3, 1, hl_units);
-		ANN.run(100, .4, data);
+		ANN.run(1000, .4, data);
 	}	
 }
 

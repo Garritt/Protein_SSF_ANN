@@ -15,17 +15,32 @@ public class Neuron {
 	final public int id;
 	final private Neuron_Type type;
 	private double output;
+	private double [] input_vector;
+	private boolean drop;
 	double error;
 	
 	public Neuron (Neuron_Type type) {
 		this.type = type;
+		this.drop = false;
+		if (type == Neuron_Type.INPUT){
+			this.input_vector = new double[21];
+		} else if (type == Neuron_Type.BIAS) {
+			this.output = bias;
+		}
 		this.id = id_count;
 		id_count++; 
 	}
+	public void setDrop() {
+		this.drop = true;
+		this.output = 0;
+	}
+	public void removeDrop() {
+		this.drop = false;
+	}
+	public boolean getDrop() {
+		return this.drop;
+	}
 	
-//	public double getInputs() {
-//		return this.inputs;
-//	}
 	public double getOutput() {
 		return this.output;
 	}
@@ -45,31 +60,36 @@ public class Neuron {
 		this.error = 0;
 	}
 	public void setInputUnits(double [] in) {
+		this.input_vector = in;
 		// SETTING THE INPUT NEURON'S OUTPUT AS INDEX OF "ONE HOT SPOT" .. POSSIBLE ERROR
 		for (int i = 0; i < in.length; i++){
+			//System.out.print(in[i]);
 			if (in[i] == 1) {
-				this.output = i;
+				this.output = i;																// ERROR SPOT ! NEED TO CHECK THIS ONE HOT ENCOIDNG 
 				break;
 			}
 		}
+		//System.out.println();
 	}
 	
-	// This combination wont actually help our network as the activation functions are 
-	public void activate() {
+	public void activate (double drop_rate) {
 		
 		if (this.type.equals(Neuron_Type.INPUT)) {
-			// ReLU shut here. 
+			// 
 		} else {
 			// Weighted Linear Sum 
 			double sum = 0;
 			for (Edge e : input_edges) {
+				//System.out.println(e.get_weight());
 				Neuron in = e.get_N_IN();
-				double weight = e.get_weight();
+				if (in.getDrop() == true) {										// DROP OUT 
+					continue;
+				}
+				double weight = e.get_weight() * (1-drop_rate);			
 				double prev_output = in.output;
-				sum = sum + (weight * prev_output);
+				sum = sum + (weight * prev_output);				
 			}	
-			sum = sum + (bias_edge.get_weight() * bias);
-			//System.out.println("bias_w: " + bias_edge.get_weight());
+			//System.out.println();
 			// Sigmoid Activation function
 			this.output = 1.0/ (1.0 + Math.exp(-sum));
 		}

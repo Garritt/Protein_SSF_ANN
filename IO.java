@@ -4,50 +4,12 @@ import java.util.*;
 
 public class IO {
 
-	// double[][] set = new double[128][21];
-
-
-//	public static void main(String[] args) {
-//		DataSets in = readFile(args[0]);
-//
-//		// attempting to get window
-//		System.out.println("window attempt");
-//		int count = 0;
-//		for (int i = 0; i < in.getTrain().size()-1; i++) {
-//			
-//			count++;
-//
-//			while(in.getTrain().get(i).getWindow() != null){
-//				
-//				// System.out.println(count);
-//				Window temp = in.getTrain().get(i).getWindow();
-//				if(temp == null) {
-//					continue;
-//				}
-//				// System.out.println("Protein: " + count);
-//				double[][] inp = temp.getInputs();
-//				double[][] out = temp.getOutputs();
-//
-//				// for(int j = 0; j < 16; j++) {
-//				// 	System.out.println("IN");
-//				// 	for(int k = 0; k < inp[j].length; k++) {
-//				// 		System.out.print(inp[j][k] + " ");
-//				// 	}
-//				// 	for(int k = 0; k < out[j].length; k++) {
-//				// 		System.out.print(out[j][k] + " ");
-//				// 	}
-//				// }
-//			}
-//		}
-//	}
-
-
 	private static double[] addAcid(String acid) {
 		double[] ret;
 		switch(acid) {
-			case "E": ret = new double[]{1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "I": ret = new double[]{1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "I": ret = new double[]{0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "E": ret = new double[]{0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
 			case "N": ret = new double[]{0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
@@ -67,9 +29,9 @@ public class IO {
 			break;
 			case "V": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "Y": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "Q": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
-			case "Q": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+			case "Y": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
 			case "P": ret = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 			break;
@@ -93,11 +55,11 @@ public class IO {
 	private static double[] addOutput(String output) {
 		double[] ret;
 		switch(output) {
-			case "e": ret = new double[]{0.0,1.0,0.0};
-			break;
-			case "h": ret = new double[]{0.0,0.0,1.0};
-			break;
 			case "_": ret = new double[]{1.0,0.0,0.0};
+			break;
+			case "h": ret = new double[]{0.0,1.0,0.0};
+			break;
+			case "e": ret = new double[]{0.0,0.0,1.0};
 			break;
 			default: ret = new double[]{0.0,0.0,0.0};
 			;
@@ -273,7 +235,7 @@ class Protein {
 	}
 	private void increaseMiddle() {
 		this.middle++;
-	
+
 	}
 
 	private void reset() {
@@ -284,8 +246,11 @@ class Protein {
 
 
 	public Window getWindow(){
-		// System.out.println("NUM ACIDS - 2: " + (num_acids-2) + "\nthis.middle: " + this.middle);
-		if (this.middle == (num_acids-2)) {                 ////// possible error
+		//System.out.println("NUM ACIDS: " + num_acids);
+		//System.out.println("ACIDS SIZE: " + this.acids.size());
+		if (this.middle == this.acids.size()) {                 ////// possible error
+			//System.out.println("MIDDLE: " + this.middle);
+			//System.out.println("ACIDS SIZE: " + this.acids.size());
 			this.reset();
 			return null;
 		}
@@ -293,81 +258,101 @@ class Protein {
 		double[][] out = new double[17][3];
 		int k = 0;
 
-		if(this.bottom < 0 && (this.num_acids-2-this.top > 8)) {
-			for(int i = this.bottom; i < 0; i++){
-				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
-				out[k] = new double[]{0.0,0.0,0.0};
-				k++;
-				
-			}
 
-			for(int j = 0; j < this.top; j++) {
-				// System.out.println("K:  "+ k +" this.top: " + this.top);
-				// System.out.println("J: " + j + " acid.size(): " + this.getAcid().size());
-				in[k] = this.getAcid().get(j);
-				out[k] = this.getOutputs().get(j);
-				k++;
-				
+		// IF THE ACID SEQUNENCE IS SMALLER THAN WINDOW
+		if (this.acids.size() < 17) {
+			if (this.bottom < 0) {
+				int j = 0;
+				// Fill Start Padding 
+				for (int i = this.bottom; i < 0; i++) {
+					in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+					out[k] = new double[]{0.0,0.0,0.0};
+					k++;
+					// j++;
+				}
+				// Fill with acids that occur in window 
+				while (k < 17 && j < this.acids.size()) {
+					in[k] = this.getAcid().get(j);
+					out[k] = this.getOutputs().get(j);
+					k++;
+					j++;
+				}
+				// Fill Ending padding 
+				while(k < 17) {
+					in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+					out[k] = new double[]{0.0,0.0,0.0};
+					k++;
+				}
+			} else {
+				int j = this.bottom;
+				while (k < 17 && j < this.acids.size()) {
+					in[k] = this.getAcid().get(j);
+					out[k] = this.getOutputs().get(j);
+					k++;
+					j++;
+				}
+				while(k < 17) {
+					in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+					out[k] = new double[]{0.0,0.0,0.0};
+					k++;
+				}
 			}
-
-		} else if (((this.num_acids-2) - this.top) < 8) {
-			for(int j = this.top; j < this.acids.size(); j++) {
-				in[k] = this.getAcid().get(j);
-				out[k] = this.getOutputs().get(j);
-				k++;
-				
-			}
-			while(k<17) {
-				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
-				out[k] = new double[]{0.0,0.0,0.0};
-				k++;
-				
-			}
-		} else if (this.bottom < 0 && (this.num_acids-2-this.top < 8)) {
-			for(int i = this.bottom; i < 0; i++) {
-				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
-				out[k] = new double[]{0.0,0.0,0.0};
-				k++;
-			}
-			for(int i = 0; i < this.num_acids-2; i++) {
-				in[k] = this.getAcid().get(i);
-				out[k] = this.getOutputs().get(i);
-				k++;
-			}
-			while(k<17) {
-				in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
-				out[k] = new double[]{0.0,0.0,0.0};
-				k++;
-			}
-
 		} else {
-			for (int j = this.bottom; j < this.top; j++){
-				// System.out.println(k);
-				in[k] = this.getAcid().get(j);
-				out[k] = this.getOutputs().get(j);
-				k++;
+			int j = 0;
+			if (this.bottom < 0) {
+				for (int i = this.bottom; i < 0; i++) {
+					in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+					out[k] = new double[]{0.0,0.0,0.0};
+					k++;
+					// j++;
+				}
+				while (k < 17 && j < this.acids.size()) {
+					in[k] = this.getAcid().get(j);
+					out[k] = this.getOutputs().get(j);
+					k++;
+					j++;
+				}
+				while (k < 17) {
+					in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+					out[k] = new double[]{0.0,0.0,0.0};
+					k++;
+				}
+			} else if (this.top > this.acids.size() && this.bottom > 0) {
+				j = this.bottom;
+				while(k < 17 && j < this.acids.size()) {
+					in[k] = this.getAcid().get(j);
+					out[k] = this.getOutputs().get(j);
+					k++;
+					j++;
+				}
 				
+				while (k < 17) {
+					in[k] = new double[]{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0};
+					out[k] = new double[]{0.0,0.0,0.0};
+					k++;
+				}
+				
+			} else if (this.bottom > 0 && this.top < this.acids.size()) {
+				for (j = this.bottom; j < this.top; j++){
+					in[k] = this.getAcid().get(j);
+					out[k] = this.getOutputs().get(j);
+					k++;
+				}
 			}
+
 		}
-		Window window = new Window(in, out);
-		// System.out.print("\t\t\t\t\t\t");
-		// for(int i = 0; i < 17; i++){
-		// 	System.out.print(window[0][i] + " ");
-		// }
-		// System.out.println();
-		// System.out.print("\t\t\t\t\t\t");
-
-		// for(int i = 0; i < 17; i++){
-		// 	System.out.print(window[1][i] + " ");
-		// }
-		// System.out.println();
-		this.increaseBottom();
-		this.increaseTop();
-		this.increaseMiddle();
-		return window;
 
 
-	}
+
+	Window window = new Window(in, out);
+
+	this.increaseBottom();
+	this.increaseTop();
+	this.increaseMiddle();
+	return window;
+
+
+}
 
 }
 
