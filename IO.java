@@ -84,7 +84,7 @@ public class IO {
 		}
 
 		// WE ABOUT TO ITERATE 
-		int linecount = 0;  // obvi the linecount...
+		int linecount = 0;
 		int trueCount = 0;
 		int numProteins = 1;
 		boolean beginning = true;

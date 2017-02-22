@@ -4,7 +4,10 @@ public class Network {
 
 	Layer input_layer, output_layer;
 	ArrayList<Layer> hidden_layers = new ArrayList<Layer>(); 
-	final double drop_rate = .5;									// Set to 0 for no drop out
+	
+	final double drop_rate = .3;									// Set to 0 for no drop out
+	final double alpha = .05;
+	final double momentum = .9;										// Set to 0 for no momentum
 	
 	public Network (int input_n, int output_n, int h_layers, int [] hu_per_layer) {
 		
@@ -144,7 +147,7 @@ public class Network {
 						System.err.println("Network Output Vector Inbalance");
 						System.exit(1);
 					}
-					back_propagation(network_output, true_output, .05, 0.9);
+					back_propagation(network_output, true_output, alpha, momentum);
 					this.removeDropN();
 				}
 			}	
@@ -201,7 +204,7 @@ public class Network {
 		System.out.println("Recall coil:        " + recall_c);
 		System.out.println("\nPrecision alpha-helix:  " + precision_a);
 		System.out.println("Precision beta-strand:  " + precision_b);
-		System.out.println("Precision coil:         " + precision_c);
+		System.out.println("Precision coil:         " + precision_c + "\n\n");
 	}
 	
 	
@@ -214,11 +217,8 @@ public class Network {
 				double rand = Math.random();
 				if (rand <= drop_rate) {
 					h_unit.setDrop();
-				}
-				//System.out.println(h_unit.getDrop());
-				// could also scale by (1 - droprate) here, but extra complexity I think.
+				}	// could also scale by (1 - droprate) here, but extra complexity... I think.
 			}
-			//System.out.println();
 		}
 	}
 	void removeDropN () {
@@ -240,6 +240,7 @@ public class Network {
 	 * 
 	 * */
 	void assess_network_output (double [] true_output, double [] network_output, double [][] cm) {
+		
 		int true_idx = 0;
 		int net_max_idx = 0;
 		double net_max_out = 0;
@@ -274,11 +275,34 @@ public class Network {
 	}
 	
 	public static void main (String args[]) {		
+		
 		DataSets data = IO.readFile(args[0]);
 		// Network Config
-		int [] hl_units = {10};
-		Network ANN = new Network(17, 3, 1, hl_units);
-		ANN.run(1000, .4, data);
+		int [] hl_units_1L_5 = {5};
+		int [] hl_units_1L_10 = {10};
+		int [] hl_units_1L_30 = {30};
+		int [] hl_units_1L_100 = {100};
+		int [] hl_units_1L_1000 = {1000};
+		System.out.println("\n - Configuring Network ann_5 - \n");
+		Network ann_5 = new Network(17, 3, 1, hl_units_1L_5);
+		System.out.println("\talpha: " + ann_5.alpha + "\n\tdrop_rate: " + ann_5.drop_rate + "\n\tmomentum term: " + ann_5.momentum + "\n");
+		ann_5.run(100, .358, data);
+		System.out.println("\n - Configuring Network ann_10 - \n");
+		Network ann_10 = new Network(17, 3, 1, hl_units_1L_10);
+		System.out.println("\talpha: " + ann_10.alpha + "\n\tdrop_rate: " + ann_10.drop_rate + "\n\tmomentum term: " + ann_10.momentum + "\n");
+		ann_10.run(100, .358, data);
+		System.out.println("\n - Configuring Network ann_30 - \n");
+		Network ann_30 = new Network(17, 3, 1, hl_units_1L_30);
+		System.out.println("\talpha: " + ann_10.alpha + "\n\tdrop_rate: " + ann_10.drop_rate + "\n\tmomentum term: " + ann_10.momentum + "\n");
+		ann_30.run(100, .358, data);
+		System.out.println("\n - Configuring Network ann_100 - \n");
+		Network ann_100 = new Network(17, 3, 1, hl_units_1L_100);
+		System.out.println("\talpha: " + ann_10.alpha + "\n\tdrop_rate: " + ann_10.drop_rate + "\n\tmomentum term: " + ann_10.momentum + "\n");
+		ann_100.run(100, .358, data);
+		System.out.println("\n - Configuring Network ann_1000 - \n");
+		Network ann_1000 = new Network(17, 3, 1, hl_units_1L_1000);
+		System.out.println("\talpha: " + ann_10.alpha + "\n\tdrop_rate: " + ann_10.drop_rate + "\n\tmomentum term: " + ann_10.momentum + "\n");
+		ann_1000.run(100, .358, data);
 	}	
 }
 

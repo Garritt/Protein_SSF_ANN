@@ -25,9 +25,15 @@ public class Layer {
 		for (int i = 0; i < num; i++) {
 			Neuron n = new Neuron(type);
 			layer.add(n);
-			if (!input_layer) {
+			if (!this.input_layer) {
 				Neuron bias = new Neuron(Neuron_Type.BIAS);
 				n.construct_In_Edges(prevL, bias);
+			} else {
+				Neuron [] input_vector = n.getInputVector();
+				for (int j = 0; j < input_vector.length; j++) {
+					Neuron ne = new Neuron(Neuron_Type.INPUT);
+					input_vector[j] = ne;
+				}
 			}
 		}
 	}

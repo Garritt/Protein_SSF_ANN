@@ -15,7 +15,7 @@ public class Neuron {
 	final public int id;
 	final private Neuron_Type type;
 	private double output;
-	private double [] input_vector;
+	private Neuron [] input_vector;
 	private boolean drop;
 	double error;
 	
@@ -23,7 +23,7 @@ public class Neuron {
 		this.type = type;
 		this.drop = false;
 		if (type == Neuron_Type.INPUT){
-			this.input_vector = new double[21];
+			this.input_vector = new Neuron [21]; // HARDCODE WARNING
 		} else if (type == Neuron_Type.BIAS) {
 			this.output = bias;
 		}
@@ -40,12 +40,14 @@ public class Neuron {
 	public boolean getDrop() {
 		return this.drop;
 	}
-	
 	public double getOutput() {
 		return this.output;
 	}
 	public void setOutput(double o) {
 		this.output = o;
+	}
+	public Neuron [] getInputVector() {
+		return this.input_vector;
 	}
 	public Edge get_edge (int neuron_id) {
 		return edge_lookup.get(neuron_id);
@@ -59,17 +61,11 @@ public class Neuron {
 	public void clearError() {
 		this.error = 0;
 	}
-	public void setInputUnits(double [] in) {
-		this.input_vector = in;
-		// SETTING THE INPUT NEURON'S OUTPUT AS INDEX OF "ONE HOT SPOT" .. POSSIBLE ERROR
-		for (int i = 0; i < in.length; i++){
-			//System.out.print(in[i]);
-			if (in[i] == 1) {
-				this.output = i;																// ERROR SPOT ! NEED TO CHECK THIS ONE HOT ENCOIDNG 
-				break;
-			}
+	public void setInputUnits (double [] in) {
+		for (int i = 0; i < in.length; i++) {
+			Neuron N = input_vector[i];
+			N.setOutput(in[i]);
 		}
-		//System.out.println();
 	}
 	
 	public void activate (double drop_rate) {
@@ -89,7 +85,6 @@ public class Neuron {
 				double prev_output = in.output;
 				sum = sum + (weight * prev_output);				
 			}	
-			//System.out.println();
 			// Sigmoid Activation function
 			this.output = 1.0/ (1.0 + Math.exp(-sum));
 		}
@@ -104,10 +99,19 @@ public class Neuron {
 	 * */
 	public void construct_In_Edges (Layer in_layer, Neuron bias) {
 		for (Neuron n : in_layer.layer) {
-			Edge e = new Edge(n, this); 
-			e.set_rand_w(-1, 1);
-			input_edges.add(e);
-			edge_lookup.put(n.id, e);
+			if (n.type == Neuron_Type.INPUT) {
+				for (int i = 0; i < n.input_vector.length; i++) {
+					Neuron ne = n.input_vector[i];
+					Edge e = new Edge(ne, this);
+					e.set_rand_w(-1, 1);
+					input_edges.add(e);
+				}
+			} else {
+				Edge e = new Edge(n, this); 
+				e.set_rand_w(-1, 1);
+				input_edges.add(e);
+				edge_lookup.put(n.id, e);
+			}
 		}
 		Edge edge_bias = new Edge(bias, this);
 		bias_edge = edge_bias;
