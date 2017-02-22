@@ -68,7 +68,7 @@ public class Neuron {
 		}
 	}
 	
-	public void activate (double drop_rate) {
+	public void activate (double drop_rate, boolean best) {
 		
 		if (this.type.equals(Neuron_Type.INPUT)) {
 			// 
@@ -81,12 +81,18 @@ public class Neuron {
 				if (in.getDrop() == true) {										// DROP OUT 
 					continue;
 				}
-				double weight = e.get_weight() * (1-drop_rate);			
+				double weight;
+				if (best){weight = e.getBestWeight() * (1-drop_rate);}
+				else {weight = e.get_weight() * (1-drop_rate);}			
 				double prev_output = in.output;
 				sum = sum + (weight * prev_output);				
 			}	
-			// Sigmoid Activation function
-			this.output = 1.0/ (1.0 + Math.exp(-sum));
+			//if (this.type == Neuron_Type.HIDDEN) {
+			//	this.output = Math.max(0, sum);
+			//} else {    // Output Neuron 
+				// Sigmoid Activation function
+				this.output = 1.0/ (1.0 + Math.exp(-sum));
+			//}
 		}
 	}
 		

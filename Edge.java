@@ -2,6 +2,7 @@ import java.text.DecimalFormat;
 
 public class Edge {
 
+	private double best_weight;
 	private double weight;
 	private double prev_delta_weight; 	//momentum
 	
@@ -12,6 +13,12 @@ public class Edge {
 		this.N_in = in;
 		this.N_out = out;
 		prev_delta_weight = 0;
+	}
+	public void setBestWeight (double weight){
+		this.best_weight = weight;
+	}
+	public double getBestWeight () {
+		return this.best_weight;
 	}
 	public void set_prev_delta (double prev) {
 		this.prev_delta_weight = prev;

@@ -68,14 +68,20 @@ public class Network {
 		}
 		
 	}
-	
-	void resetMomentum() {
+	/*
+	 * boolean input reset will reset momentum on edges if true.
+	 * If false, the method will save the best weight to the edge.
+	 * 
+	 * */
+	void resetM_saveBW(boolean reset) {
 		
 		ArrayList<Neuron> output_nodes = output_layer.getLayer();
 		for (int i = 0; i < output_nodes.size(); i++) {
 			ArrayList<Edge> in_edges = output_nodes.get(i).getInputEdges();
 			for(int j = 0; j < in_edges.size(); j++) {
-				in_edges.get(j).reset();
+				Edge e = in_edges.get(j);
+				if (reset){e.reset();}
+				else {e.setBestWeight(e.get_weight());}
 			}
 		}
 		for(int i = 0; i < hidden_layers.size(); i++) { 
@@ -83,7 +89,9 @@ public class Network {
 			for(int j = 0; j < in_nodes.size(); j++) {
 				ArrayList<Edge> in_edges = in_nodes.get(j).getInputEdges();
 				for(int k = 0; k < in_edges.size(); k++) {
-					in_edges.get(k).reset();
+					Edge e = in_edges.get(k);
+					if (reset) {e.reset();}
+					else {e.setBestWeight(e.get_weight());}
 				}
 			}
 		}
@@ -94,7 +102,7 @@ public class Network {
 	 *  Returns the network_output.
 	 * 
 	 * */
-	public double [] feed_forward (Window window) {
+	public double [] feed_forward (Window window, boolean best) {
 		
 		double[][] inputs = window.getInputs();
 		int true_output_sz = window.getOutputs()[8].length; 
@@ -111,7 +119,7 @@ public class Network {
 				if (h_unit.getDrop() == true){
 					continue;
 				} else {
-					h_unit.activate(drop_rate);
+					h_unit.activate(drop_rate, best);
 				}
 			}
 		}		
@@ -119,21 +127,27 @@ public class Network {
 		double [] network_output = new double [true_output_sz];
 		for (int g = 0; g < output_layer.getLayer().size(); g++) {
 			Neuron output_unit = output_layer.getLayer().get(g);
-			output_unit.activate(drop_rate);
+			output_unit.activate(drop_rate, best);
 			network_output[g] = output_unit.getOutput();
 		}	
 		return network_output;
 	}
 
+	/*
+	 * Runs a network configuration with test data.
+	 * 
+	 * */
 	public void run (int epochs, double minError, DataSets data) {
 		
 		ArrayList<Protein> train = data.getTrain();
 		ArrayList<Protein> tune = data.getTune();
 		ArrayList<Protein> test = data.getTest();
 		double [][] cm = new double [3][3];
+		double best = 0;
 		
 		// Training Epochs
 		for (int i = 0; i < epochs; i++) {	
+			
 			// Training on this Protein. One Protein provides many training examples
 			for (Protein prot : train) {
 				Window window;
@@ -142,7 +156,7 @@ public class Network {
 					this.setDropN(drop_rate);
 					// input window example for this amino acid
 					double [] true_output = window.getOutputs()[8]; // Output Based on nucleation site, always 9th in window
-					double [] network_output = feed_forward(window);
+					double [] network_output = feed_forward(window, false);
 					if (true_output.length != network_output.length) {
 						System.err.println("Network Output Vector Inbalance");
 						System.exit(1);
@@ -161,18 +175,22 @@ public class Network {
 					while ((window = prot.getWindow()) != null) {
 						// input window example for this amino acid
 						double [] true_output = window.getOutputs()[8];
-						double [] network_output = feed_forward(window);
+						double [] network_output = feed_forward(window, false);
 						assess_network_output(true_output, network_output, cm);
 					}
 				}
 				confu_accuracy = (cm[0][0] + cm[1][1] + cm[2][2]) / total;
+				if (confu_accuracy > best) {
+					best = confu_accuracy;
+					this.resetM_saveBW(false);
+				}
 				System.out.println("Confusion Matrix Accuracy TUNE after epoch " + i + ": " + confu_accuracy);
 				clear_print_matrix(cm, 1);
 				if (confu_accuracy > 1.0 - minError) {
 					break;
 				}
 			}
-			this.resetMomentum();
+			this.resetM_saveBW(true);
 		}
 		// Start on test set
 		double confu_accuracy = 0;
@@ -183,7 +201,7 @@ public class Network {
 			while ((window = prot.getWindow()) != null) {
 				// input window example for this amino acid
 				double [] true_output = window.getOutputs()[8];
-				double [] network_output = feed_forward(window);
+				double [] network_output = feed_forward(window, true);
 				assess_network_output(true_output, network_output, cm);
 			}
 		}
@@ -209,6 +227,12 @@ public class Network {
 	
 	
 	
+	/*
+	 * setDropN and removeDropN are used to toggle units as
+	 * drop units when using Hinton's DropOut technique.
+	 *
+	 * */
+	
 	void setDropN (double drop_rate) {
 		for (int g = 0; g < this.hidden_layers.size(); g++) {
 			Layer h_layer = this.hidden_layers.get(g);
@@ -233,10 +257,9 @@ public class Network {
 	
 	
 	/*
-	 * Assesses one examples network output vs expected output.
-	 * Returns true if network was correct, false otherwise.
-	 * 
-	 * Note: Network output may not be "one hot", so we assume the output unit with the max value to be the prediction.
+	 *
+	 * Increments confusion matrix data in the correct fashion
+	 * using network output and target_output.
 	 * 
 	 * */
 	void assess_network_output (double [] true_output, double [] network_output, double [][] cm) {
@@ -258,6 +281,9 @@ public class Network {
 		//System.out.println("target idx: " + true_idx + " netout idx: "+ net_max_idx);
 	}
 	
+	/*
+	 * Helper function to clear/print confusion matrix after every calculation
+	 * */
 	void clear_print_matrix( double [][] cm, int flag) {
 		for (int i = 0; i < cm.length; i++) {
 			for (int j = 0; j < cm.length; j++) {
