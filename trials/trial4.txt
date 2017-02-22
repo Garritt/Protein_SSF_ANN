@@ -1,0 +1,271 @@
+
+ - Configuring Network ann_5 - 
+
+	alpha: 0.05
+	drop_rate: 0.3
+	momentum term: 0.9
+
+Confusion Matrix Accuracy TUNE after epoch 2: 0.553226566179934
+Confusion Matrix Accuracy TUNE after epoch 4: 0.553226566179934
+Confusion Matrix Accuracy TUNE after epoch 6: 0.5661799340555818
+Confusion Matrix Accuracy TUNE after epoch 8: 0.5927932171455488
+Confusion Matrix Accuracy TUNE after epoch 10: 0.6071596796985398
+Confusion Matrix Accuracy TUNE after epoch 12: 0.6158737635421573
+Confusion Matrix Accuracy TUNE after epoch 14: 0.6208195949128592
+Confusion Matrix Accuracy TUNE after epoch 16: 0.6316533207724918
+Confusion Matrix Accuracy TUNE after epoch 18: 0.6373056994818653
+Confusion Matrix Accuracy TUNE after epoch 20: 0.6380122468205369
+Confusion Matrix Accuracy TUNE after epoch 22: 0.6368346679227508
+Confusion Matrix Accuracy TUNE after epoch 24: 0.6340084785680641
+Confusion Matrix Accuracy TUNE after epoch 26: 0.6337729627885068
+Confusion Matrix Accuracy TUNE after epoch 28: 0.6347150259067358
+Confusion Matrix Accuracy TUNE after epoch 30: 0.632830899670278
+Confusion Matrix Accuracy TUNE after epoch 32: 0.6302402260951484
+Confusion Matrix Accuracy TUNE after epoch 34: 0.6321243523316062
+Confusion Matrix Accuracy TUNE after epoch 36: 0.6321243523316062
+Confusion Matrix Accuracy TUNE after epoch 38: 0.6314178049929345
+Confusion Matrix Accuracy TUNE after epoch 40: 0.6316533207724918
+Confusion Matrix Accuracy TUNE after epoch 42: 0.631888836552049
+Confusion Matrix Accuracy TUNE after epoch 44: 0.6325953838907207
+Confusion Matrix Accuracy TUNE after epoch 46: 0.6314178049929345
+Confusion Matrix Accuracy TUNE after epoch 48: 0.6311822892133773
+Confusion Matrix Accuracy TUNE after epoch 50: 0.6292981629769194
+Confusion Matrix Accuracy TUNE after epoch 52: 0.6330664154498351
+Confusion Matrix Accuracy TUNE after epoch 54: 0.6309467734338201
+Confusion Matrix Accuracy TUNE after epoch 56: 0.6314178049929345
+Confusion Matrix Accuracy TUNE after epoch 58: 0.6283560998586906
+Confusion Matrix Accuracy TUNE after epoch 60: 0.628827131417805
+Confusion Matrix Accuracy TUNE after epoch 62: 0.6267074894017899
+Confusion Matrix Accuracy TUNE after epoch 64: 0.6269430051813472
+Confusion Matrix Accuracy TUNE after epoch 66: 0.6267074894017899
+Confusion Matrix Accuracy TUNE after epoch 68: 0.627885068299576
+Confusion Matrix Accuracy TUNE after epoch 70: 0.6267074894017899
+Confusion Matrix Accuracy TUNE after epoch 72: 0.6260009420631182
+Confusion Matrix Accuracy TUNE after epoch 74: 0.6260009420631182
+Confusion Matrix Accuracy TUNE after epoch 76: 0.6229392369288742
+Confusion Matrix Accuracy TUNE after epoch 78: 0.624823363165332
+Confusion Matrix Accuracy TUNE after epoch 80: 0.624823363165332
+Confusion Matrix Accuracy TUNE after epoch 82: 0.6269430051813472
+Confusion Matrix Accuracy TUNE after epoch 84: 0.6276495525200189
+Confusion Matrix Accuracy TUNE after epoch 86: 0.6269430051813472
+Confusion Matrix Accuracy TUNE after epoch 88: 0.624823363165332
+Confusion Matrix Accuracy TUNE after epoch 90: 0.6255299105040037
+Confusion Matrix Accuracy TUNE after epoch 92: 0.6269430051813472
+Confusion Matrix Accuracy TUNE after epoch 94: 0.6262364578426755
+Confusion Matrix Accuracy TUNE after epoch 96: 0.6281205840791333
+Confusion Matrix Accuracy TUNE after epoch 98: 0.627885068299576
+
+
+Confusion Matrix Data run on TEST
+
+2568.0 318.0 316.0 
+708.0 635.0 149.0 
+484.0 240.0 402.0 
+
+Accuracy:  0.6141396933560477
+Error Rate: 0.3858603066439523
+
+Recall alpha-helix: 0.35701598579040855
+Recall beta-strand: 0.42560321715817695
+Recall coil:        0.801998750780762
+
+Precision alpha-helix:  0.46366782006920415
+Precision beta-strand:  0.5322715842414082
+Precision coil:         0.6829787234042554
+
+
+
+ - Configuring Network ann_10 - 
+
+	alpha: 0.05
+	drop_rate: 0.3
+	momentum term: 0.9
+
+Confusion Matrix Accuracy TUNE after epoch 2: 0.553226566179934
+Confusion Matrix Accuracy TUNE after epoch 4: 0.5579368817710787
+Confusion Matrix Accuracy TUNE after epoch 6: 0.5876118699952897
+Confusion Matrix Accuracy TUNE after epoch 8: 0.6031559114460668
+Confusion Matrix Accuracy TUNE after epoch 10: 0.6111634479510127
+Confusion Matrix Accuracy TUNE after epoch 12: 0.6245878473857749
+Confusion Matrix Accuracy TUNE after epoch 14: 0.6344795101271785
+Confusion Matrix Accuracy TUNE after epoch 16: 0.6351860574658502
+Confusion Matrix Accuracy TUNE after epoch 18: 0.6351860574658502
+Confusion Matrix Accuracy TUNE after epoch 20: 0.6373056994818653
+Confusion Matrix Accuracy TUNE after epoch 22: 0.6408384361752237
+Confusion Matrix Accuracy TUNE after epoch 24: 0.641073951954781
+Confusion Matrix Accuracy TUNE after epoch 26: 0.6420160150730099
+
+
+Confusion Matrix Data run on TEST
+
+2630.0 315.0 257.0 
+755.0 637.0 100.0 
+507.0 257.0 362.0 
+
+Accuracy:  0.6182282793867121
+Error Rate: 0.3817717206132879
+
+Recall alpha-helix: 0.32149200710479575
+Recall beta-strand: 0.4269436997319035
+Recall coil:        0.8213616489693941
+
+Precision alpha-helix:  0.5034770514603616
+Precision beta-strand:  0.5268817204301075
+Precision coil:         0.6757451181911613
+
+
+
+ - Configuring Network ann_30 - 
+
+	alpha: 0.05
+	drop_rate: 0.3
+	momentum term: 0.9
+
+Confusion Matrix Accuracy TUNE after epoch 2: 0.5609985869053227
+Confusion Matrix Accuracy TUNE after epoch 4: 0.5814884597268017
+Confusion Matrix Accuracy TUNE after epoch 6: 0.5923221855864343
+Confusion Matrix Accuracy TUNE after epoch 8: 0.6109279321714555
+Confusion Matrix Accuracy TUNE after epoch 10: 0.6241168158266603
+Confusion Matrix Accuracy TUNE after epoch 12: 0.6250588789448893
+Confusion Matrix Accuracy TUNE after epoch 14: 0.6292981629769194
+Confusion Matrix Accuracy TUNE after epoch 16: 0.6290626471973623
+Confusion Matrix Accuracy TUNE after epoch 18: 0.634950541686293
+Confusion Matrix Accuracy TUNE after epoch 20: 0.6370701837023081
+Confusion Matrix Accuracy TUNE after epoch 22: 0.6391898257183232
+Confusion Matrix Accuracy TUNE after epoch 24: 0.6413094677343382
+Confusion Matrix Accuracy TUNE after epoch 26: 0.640131888836552
+Confusion Matrix Accuracy TUNE after epoch 28: 0.6413094677343382
+Confusion Matrix Accuracy TUNE after epoch 30: 0.6439001413094677
+
+
+Confusion Matrix Data run on TEST
+
+2658.0 236.0 308.0 
+781.0 540.0 171.0 
+512.0 181.0 433.0 
+
+Accuracy:  0.6185689948892674
+Error Rate: 0.3814310051107326
+
+Recall alpha-helix: 0.3845470692717584
+Recall beta-strand: 0.36193029490616624
+Recall coil:        0.830106183635228
+
+Precision alpha-helix:  0.47478070175438597
+Precision beta-strand:  0.5642633228840125
+Precision coil:         0.6727410782080486
+
+
+
+ - Configuring Network ann_100 - 
+
+	alpha: 0.05
+	drop_rate: 0.3
+	momentum term: 0.9
+
+Confusion Matrix Accuracy TUNE after epoch 2: 0.5720678285445124
+Confusion Matrix Accuracy TUNE after epoch 4: 0.5586434291097504
+Confusion Matrix Accuracy TUNE after epoch 6: 0.56547338671691
+Confusion Matrix Accuracy TUNE after epoch 8: 0.5916156382477626
+Confusion Matrix Accuracy TUNE after epoch 10: 0.5993876589731512
+Confusion Matrix Accuracy TUNE after epoch 12: 0.6203485633537447
+Confusion Matrix Accuracy TUNE after epoch 14: 0.6194065002355158
+Confusion Matrix Accuracy TUNE after epoch 16: 0.6255299105040037
+Confusion Matrix Accuracy TUNE after epoch 18: 0.6283560998586906
+Confusion Matrix Accuracy TUNE after epoch 20: 0.6271785209609044
+Confusion Matrix Accuracy TUNE after epoch 22: 0.6260009420631182
+Confusion Matrix Accuracy TUNE after epoch 24: 0.625765426283561
+Confusion Matrix Accuracy TUNE after epoch 26: 0.6450777202072538
+
+
+Confusion Matrix Data run on TEST
+
+2548.0 354.0 300.0 
+695.0 664.0 133.0 
+455.0 251.0 420.0 
+
+Accuracy:  0.6187393526405451
+Error Rate: 0.38126064735945486
+
+Recall alpha-helix: 0.37300177619893427
+Recall beta-strand: 0.4450402144772118
+Recall coil:        0.7957526545908807
+
+Precision alpha-helix:  0.492379835873388
+Precision beta-strand:  0.5232466509062254
+Precision coil:         0.6890210924824229
+
+
+
+ - Configuring Network ann_1000 - 
+
+	alpha: 0.05
+	drop_rate: 0.3
+	momentum term: 0.9
+
+Confusion Matrix Accuracy TUNE after epoch 2: 0.5598210080075365
+Confusion Matrix Accuracy TUNE after epoch 4: 0.6040979745642958
+Confusion Matrix Accuracy TUNE after epoch 6: 0.617522373999058
+Confusion Matrix Accuracy TUNE after epoch 8: 0.6149317004239284
+Confusion Matrix Accuracy TUNE after epoch 10: 0.6262364578426755
+Confusion Matrix Accuracy TUNE after epoch 12: 0.6203485633537447
+Confusion Matrix Accuracy TUNE after epoch 14: 0.6055110692416392
+Confusion Matrix Accuracy TUNE after epoch 16: 0.6269430051813472
+Confusion Matrix Accuracy TUNE after epoch 18: 0.5986811116344795
+Confusion Matrix Accuracy TUNE after epoch 20: 0.6255299105040037
+Confusion Matrix Accuracy TUNE after epoch 22: 0.6300047103155911
+Confusion Matrix Accuracy TUNE after epoch 24: 0.6241168158266603
+Confusion Matrix Accuracy TUNE after epoch 26: 0.6092793217145549
+Confusion Matrix Accuracy TUNE after epoch 28: 0.6088082901554405
+Confusion Matrix Accuracy TUNE after epoch 30: 0.6208195949128592
+Confusion Matrix Accuracy TUNE after epoch 32: 0.6271785209609044
+Confusion Matrix Accuracy TUNE after epoch 34: 0.6325953838907207
+Confusion Matrix Accuracy TUNE after epoch 36: 0.625765426283561
+Confusion Matrix Accuracy TUNE after epoch 38: 0.5934997644842205
+Confusion Matrix Accuracy TUNE after epoch 40: 0.6234102684879888
+Confusion Matrix Accuracy TUNE after epoch 42: 0.6245878473857749
+Confusion Matrix Accuracy TUNE after epoch 44: 0.6307112576542628
+Confusion Matrix Accuracy TUNE after epoch 46: 0.6302402260951484
+Confusion Matrix Accuracy TUNE after epoch 48: 0.6168158266603863
+Confusion Matrix Accuracy TUNE after epoch 50: 0.6137541215261423
+Confusion Matrix Accuracy TUNE after epoch 52: 0.6361281205840791
+Confusion Matrix Accuracy TUNE after epoch 54: 0.6358926048045219
+Confusion Matrix Accuracy TUNE after epoch 56: 0.6340084785680641
+Confusion Matrix Accuracy TUNE after epoch 58: 0.6076307112576542
+Confusion Matrix Accuracy TUNE after epoch 60: 0.6224682053697598
+Confusion Matrix Accuracy TUNE after epoch 62: 0.6333019312293924
+Confusion Matrix Accuracy TUNE after epoch 64: 0.627885068299576
+Confusion Matrix Accuracy TUNE after epoch 66: 0.6347150259067358
+Confusion Matrix Accuracy TUNE after epoch 68: 0.628827131417805
+Confusion Matrix Accuracy TUNE after epoch 70: 0.6389543099387659
+Confusion Matrix Accuracy TUNE after epoch 72: 0.6387187941592086
+Confusion Matrix Accuracy TUNE after epoch 74: 0.6356570890249646
+Confusion Matrix Accuracy TUNE after epoch 76: 0.6365991521431936
+Confusion Matrix Accuracy TUNE after epoch 78: 0.6081017428167688
+Confusion Matrix Accuracy TUNE after epoch 80: 0.6370701837023081
+Confusion Matrix Accuracy TUNE after epoch 82: 0.6406029203956665
+Confusion Matrix Accuracy TUNE after epoch 84: 0.6252943947244466
+Confusion Matrix Accuracy TUNE after epoch 86: 0.6368346679227508
+Confusion Matrix Accuracy TUNE after epoch 88: 0.6335374470089497
+Confusion Matrix Accuracy TUNE after epoch 90: 0.6217616580310881
+Confusion Matrix Accuracy TUNE after epoch 92: 0.6434291097503533
+
+
+Confusion Matrix Data run on TEST
+
+2709.0 299.0 194.0 
+781.0 638.0 73.0 
+537.0 279.0 310.0 
+
+Accuracy:  0.6229982964224873
+Error Rate: 0.3770017035775127
+
+Recall alpha-helix: 0.2753108348134991
+Recall beta-strand: 0.42761394101876676
+Recall coil:        0.8460337289194254
+
+Precision alpha-helix:  0.537261698440208
+Precision beta-strand:  0.524671052631579
+Precision coil:         0.6727092128135088
+
+
