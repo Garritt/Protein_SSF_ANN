@@ -142,14 +142,23 @@ public class Network {
 		ArrayList<Protein> train = data.getTrain();
 		ArrayList<Protein> tune = data.getTune();
 		ArrayList<Protein> test = data.getTest();
+		
+		double [] train_accuracy_stream = new double [epochs];
+		double [] tune_accuracy_stream = new double [(int) Math.ceil((epochs/2))];
+		//double [] test_accuracy_stream = new double [epochs];
+		
 		double [][] cm = new double [3][3];
+		double confu_accuracy;
+		double total;
 		double best = 0;
 		
 		// Training Epochs
 		for (int i = 0; i < epochs; i++) {	
-			
-			// Training on this Protein. One Protein provides many training examples
+			confu_accuracy = 0;
+			total = 0;
+			// Training on this Protein. One Protein provides many training examples.
 			for (Protein prot : train) {
+				total += prot.num_acids;
 				Window window;
 				while((window = prot.getWindow()) != null) {
 					// Set Drop Out Neurons
@@ -163,12 +172,18 @@ public class Network {
 					}
 					back_propagation(network_output, true_output, alpha, momentum);
 					this.removeDropN();
+					assess_network_output(true_output, network_output, cm);
 				}
-			}	
+			}
+			confu_accuracy = (cm[0][0] + cm[1][1] + cm[2][2]) / total;
+			train_accuracy_stream[i] = confu_accuracy;
+			//System.out.println("Confusion-Matrix Accuracy TRAIN after epoch " + i + ": " + confu_accuracy);
+			clear_print_matrix(cm, 1);
+			
 			// Early Stopping. Check against tune.
 			if (i % 2 == 0 && i != 0) {
-				double confu_accuracy = 0;
-				double total = 0;				
+				confu_accuracy = 0;
+				total = 0;				
 				for (Protein prot : tune) {
 					total += prot.num_acids;
 					Window window;
@@ -184,7 +199,8 @@ public class Network {
 					best = confu_accuracy;
 					this.resetM_saveBW(false);
 				}
-				System.out.println("Confusion Matrix Accuracy TUNE after epoch " + i + ": " + confu_accuracy);
+				//System.out.println("Confusion-Matrix Accuracy TUNE after epoch " + i + ": " + confu_accuracy);
+				tune_accuracy_stream[i/2] = confu_accuracy;
 				clear_print_matrix(cm, 1);
 				if (confu_accuracy > 1.0 - minError) {
 					break;
@@ -193,8 +209,8 @@ public class Network {
 			this.resetM_saveBW(true);
 		}
 		// Start on test set
-		double confu_accuracy = 0;
-		double total = 0;
+		confu_accuracy = 0;
+		total = 0;
 		for (Protein prot : test ) {
 			total+=prot.num_acids;
 			Window window;
@@ -205,16 +221,34 @@ public class Network {
 				assess_network_output(true_output, network_output, cm);
 			}
 		}
-		
-		confu_accuracy = (cm[0][0] + cm[1][1] + cm[2][2]) / total;
+		statPrint(train_accuracy_stream, tune_accuracy_stream, cm, total);
+	}
+	
+	/*
+	 * Prints training and testing stats for this network
+	 * 
+	 * */
+	void statPrint (double [] train_stream, double [] tune_stream, double [][] cm, double total) {
+		for (int i = 0; i < train_stream.length; i++) {
+			if (train_stream[i] != 0) {
+				System.out.println("Accuracy TRAIN after epoch " + i + ": " + train_stream[i]);
+			}
+		}
+		System.out.println("\n");
+		for (int i = 0; i < tune_stream.length; i++) {
+			if (tune_stream[i] != 0) {
+				System.out.println("Accuracy TUNE after epoch " + i*2 + ": " + tune_stream[i]);
+			}
+		}
+		System.out.println("\n");
+		double confu_accuracy = (cm[0][0] + cm[1][1] + cm[2][2]) / total;
 		double recall_a = cm[2][2] / (cm[2][0] + cm[2][1] + cm[2][2]);
 		double precision_a = cm[2][2] / (cm[0][2] + cm[1][2] + cm[2][2]);
 		double recall_b = cm[1][1] / (cm[1][0] + cm[1][1] + cm[1][2]);
 		double precision_b = cm[1][1] / (cm[0][1] + cm[1][1] + cm[2][1]);
 		double recall_c = cm[0][0] / (cm[0][0] + cm[0][1] + cm[0][2]);
 		double precision_c = cm[0][0] / (cm[0][0] + cm[1][0] + cm[2][0]);
- 		
-		System.out.println("\n\nConfusion Matrix Data run on TEST\n");
+ 		System.out.println("Confusion Matrix Data run on TEST\n");
 		clear_print_matrix(cm, 0);
 		System.out.println("\nAccuracy:  " + confu_accuracy + "\nError Rate: " + (1 - confu_accuracy));
 		System.out.println("\nRecall alpha-helix: " + recall_a);
@@ -224,8 +258,6 @@ public class Network {
 		System.out.println("Precision beta-strand:  " + precision_b);
 		System.out.println("Precision coil:         " + precision_c + "\n\n");
 	}
-	
-	
 	
 	/*
 	 * setDropN and removeDropN are used to toggle units as
@@ -282,7 +314,12 @@ public class Network {
 	}
 	
 	/*
-	 * Helper function to clear/print confusion matrix after every calculation
+	 * Helper function to clear/print confusion matrix after every calculation.
+	 * 
+	 * 0 flag = print
+	 * 1 flag = clear
+	 * anything else = both 
+	 * 
 	 * */
 	void clear_print_matrix( double [][] cm, int flag) {
 		for (int i = 0; i < cm.length; i++) {
@@ -309,25 +346,25 @@ public class Network {
 		int [] hl_units_1L_30 = {30};
 		int [] hl_units_1L_100 = {100};
 		int [] hl_units_1L_1000 = {1000};
-		System.out.println("\n - Configuring Network ann_5 - \n");
+		System.out.println("\n\n\n\n - Configuring Network ann_5 - \n");
 		Network ann_5 = new Network(17, 3, 1, hl_units_1L_5);
-		System.out.println("\talpha: " + ann_5.alpha + "\n\tdrop_rate: " + ann_5.drop_rate + "\n\tmomentum term: " + ann_5.momentum + "\n");
+		System.out.println("\talpha: " + ann_5.alpha + "\n\tdrop_rate: " + ann_5.drop_rate + "\n\tmomentum term: " + ann_5.momentum + "\n\n\tRunning Network...\n");
 		ann_5.run(100, .358, data);
-		System.out.println("\n - Configuring Network ann_10 - \n");
+		System.out.println("\n\n\n\n - Configuring Network ann_10 - \n");
 		Network ann_10 = new Network(17, 3, 1, hl_units_1L_10);
-		System.out.println("\talpha: " + ann_10.alpha + "\n\tdrop_rate: " + ann_10.drop_rate + "\n\tmomentum term: " + ann_10.momentum + "\n");
+		System.out.println("\talpha: " + ann_10.alpha + "\n\tdrop_rate: " + ann_10.drop_rate + "\n\tmomentum term: " + ann_10.momentum + "\n\n\tRunning Network...\n");
 		ann_10.run(100, .358, data);
-		System.out.println("\n - Configuring Network ann_30 - \n");
+		System.out.println("\n\n\n\n - Configuring Network ann_30 - \n");
 		Network ann_30 = new Network(17, 3, 1, hl_units_1L_30);
-		System.out.println("\talpha: " + ann_10.alpha + "\n\tdrop_rate: " + ann_10.drop_rate + "\n\tmomentum term: " + ann_10.momentum + "\n");
+		System.out.println("\talpha: " + ann_30.alpha + "\n\tdrop_rate: " + ann_30.drop_rate + "\n\tmomentum term: " + ann_30.momentum + "\n\n\tRunning Network....\n");
 		ann_30.run(100, .358, data);
-		System.out.println("\n - Configuring Network ann_100 - \n");
+		System.out.println("\n\n\n\n - Configuring Network ann_100 - \n");
 		Network ann_100 = new Network(17, 3, 1, hl_units_1L_100);
-		System.out.println("\talpha: " + ann_10.alpha + "\n\tdrop_rate: " + ann_10.drop_rate + "\n\tmomentum term: " + ann_10.momentum + "\n");
+		System.out.println("\talpha: " + ann_100.alpha + "\n\tdrop_rate: " + ann_100.drop_rate + "\n\tmomentum term: " + ann_100.momentum + "\n\n\tRunning Network...\n");
 		ann_100.run(100, .358, data);
-		System.out.println("\n - Configuring Network ann_1000 - \n");
+		System.out.println("\n\n\n\n - Configuring Network ann_1000 - \n");
 		Network ann_1000 = new Network(17, 3, 1, hl_units_1L_1000);
-		System.out.println("\talpha: " + ann_10.alpha + "\n\tdrop_rate: " + ann_10.drop_rate + "\n\tmomentum term: " + ann_10.momentum + "\n");
+		System.out.println("\talpha: " + ann_1000.alpha + "\n\tdrop_rate: " + ann_1000.drop_rate + "\n\tmomentum term: " + ann_1000.momentum + "\n\n\tRunning Network...\n");
 		ann_1000.run(100, .358, data);
 	}	
 }
