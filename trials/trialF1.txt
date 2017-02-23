@@ -1,0 +1,532 @@
+
+
+
+
+ - Configuring Network ann_5 - 
+
+	alpha: 0.05
+	drop_rate: 0.3
+	momentum term: 0.9
+
+	Running Network...
+
+Accuracy TRAIN after epoch 0: 0.5473513881791858
+Accuracy TRAIN after epoch 1: 0.5478623743825584
+Accuracy TRAIN after epoch 2: 0.5516096065406234
+Accuracy TRAIN after epoch 3: 0.5521205927439959
+Accuracy TRAIN after epoch 4: 0.5544200306591722
+Accuracy TRAIN after epoch 5: 0.5606370294668711
+Accuracy TRAIN after epoch 6: 0.5652359052972237
+Accuracy TRAIN after epoch 7: 0.5722193834099812
+Accuracy TRAIN after epoch 8: 0.5788622040538238
+Accuracy TRAIN after epoch 9: 0.5858456821665815
+Accuracy TRAIN after epoch 10: 0.5881451200817578
+Accuracy TRAIN after epoch 11: 0.5928291602793391
+Accuracy TRAIN after epoch 12: 0.5939362970533129
+Accuracy TRAIN after epoch 13: 0.5999829671265543
+Accuracy TRAIN after epoch 14: 0.6060296371997956
+Accuracy TRAIN after epoch 15: 0.6081587463805144
+Accuracy TRAIN after epoch 16: 0.6105433486629195
+Accuracy TRAIN after epoch 17: 0.6114801567024357
+Accuracy TRAIN after epoch 18: 0.6128427865780958
+Accuracy TRAIN after epoch 19: 0.6196559359563959
+Accuracy TRAIN after epoch 20: 0.6192301141202521
+Accuracy TRAIN after epoch 21: 0.6204224152614546
+Accuracy TRAIN after epoch 22: 0.6227218531766309
+Accuracy TRAIN after epoch 23: 0.6216998807698859
+Accuracy TRAIN after epoch 24: 0.6324305910407085
+Accuracy TRAIN after epoch 25: 0.6301311531255323
+Accuracy TRAIN after epoch 26: 0.6318344404701073
+Accuracy TRAIN after epoch 27: 0.6325157554079374
+Accuracy TRAIN after epoch 28: 0.6326860841423948
+Accuracy TRAIN after epoch 29: 0.6331970703457673
+Accuracy TRAIN after epoch 30: 0.6341338783852836
+Accuracy TRAIN after epoch 31: 0.6374552887072049
+Accuracy TRAIN after epoch 32: 0.6364333163004599
+Accuracy TRAIN after epoch 33: 0.6348151933231136
+Accuracy TRAIN after epoch 34: 0.6330267416113098
+Accuracy TRAIN after epoch 35: 0.6343893714869698
+Accuracy TRAIN after epoch 36: 0.6373701243399762
+Accuracy TRAIN after epoch 37: 0.6340487140180548
+Accuracy TRAIN after epoch 38: 0.6363481519332311
+Accuracy TRAIN after epoch 39: 0.6375404530744336
+Accuracy TRAIN after epoch 40: 0.6358371657298586
+Accuracy TRAIN after epoch 41: 0.6387327542156361
+Accuracy TRAIN after epoch 42: 0.6403508771929824
+Accuracy TRAIN after epoch 43: 0.6373701243399762
+Accuracy TRAIN after epoch 44: 0.6365184806676887
+Accuracy TRAIN after epoch 45: 0.64052120592744
+Accuracy TRAIN after epoch 46: 0.6379662749105774
+Accuracy TRAIN after epoch 47: 0.6377107818088912
+Accuracy TRAIN after epoch 48: 0.6379662749105774
+Accuracy TRAIN after epoch 49: 0.6406915346618974
+Accuracy TRAIN after epoch 50: 0.641543178334185
+Accuracy TRAIN after epoch 51: 0.6439277806165901
+Accuracy TRAIN after epoch 52: 0.6371997956055186
+Accuracy TRAIN after epoch 53: 0.6377107818088912
+Accuracy TRAIN after epoch 54: 0.6392437404190087
+Accuracy TRAIN after epoch 55: 0.6404360415602112
+Accuracy TRAIN after epoch 56: 0.6409470277635837
+Accuracy TRAIN after epoch 57: 0.6450349173905637
+Accuracy TRAIN after epoch 58: 0.644949753023335
+Accuracy TRAIN after epoch 59: 0.6431613013115313
+Accuracy TRAIN after epoch 60: 0.6445239311871913
+Accuracy TRAIN after epoch 61: 0.6379662749105774
+Accuracy TRAIN after epoch 62: 0.642224493272015
+Accuracy TRAIN after epoch 63: 0.64052120592744
+Accuracy TRAIN after epoch 64: 0.6395843978879237
+Accuracy TRAIN after epoch 65: 0.6424799863737013
+Accuracy TRAIN after epoch 66: 0.6461420541645375
+Accuracy TRAIN after epoch 67: 0.6417135070686425
+Accuracy TRAIN after epoch 68: 0.6451200817577926
+Accuracy TRAIN after epoch 69: 0.64529041049225
+Accuracy TRAIN after epoch 70: 0.6451200817577926
+Accuracy TRAIN after epoch 71: 0.6475046840401976
+Accuracy TRAIN after epoch 72: 0.6477601771418838
+Accuracy TRAIN after epoch 73: 0.6377959461761199
+Accuracy TRAIN after epoch 74: 0.6406915346618974
+Accuracy TRAIN after epoch 75: 0.6481859989780276
+Accuracy TRAIN after epoch 76: 0.6445239311871913
+Accuracy TRAIN after epoch 77: 0.6504854368932039
+Accuracy TRAIN after epoch 78: 0.6440129449838188
+Accuracy TRAIN after epoch 79: 0.6459717254300801
+Accuracy TRAIN after epoch 80: 0.6453755748594788
+Accuracy TRAIN after epoch 81: 0.6461420541645375
+Accuracy TRAIN after epoch 82: 0.6459717254300801
+Accuracy TRAIN after epoch 83: 0.6434167944132175
+Accuracy TRAIN after epoch 84: 0.6509964230965763
+Accuracy TRAIN after epoch 85: 0.6468233691023676
+Accuracy TRAIN after epoch 86: 0.644949753023335
+Accuracy TRAIN after epoch 87: 0.64665304036791
+Accuracy TRAIN after epoch 88: 0.6393289047862374
+Accuracy TRAIN after epoch 89: 0.6480156702435701
+Accuracy TRAIN after epoch 90: 0.646993697836825
+Accuracy TRAIN after epoch 91: 0.6470788622040539
+Accuracy TRAIN after epoch 92: 0.6446942599216487
+Accuracy TRAIN after epoch 93: 0.6481008346107988
+Accuracy TRAIN after epoch 94: 0.6510815874638052
+Accuracy TRAIN after epoch 95: 0.6471640265712826
+Accuracy TRAIN after epoch 96: 0.6484414920797138
+Accuracy TRAIN after epoch 97: 0.6495486288536876
+Accuracy TRAIN after epoch 98: 0.6500596150570601
+Accuracy TRAIN after epoch 99: 0.6492931357520013
+
+
+Accuracy TUNE after epoch 2: 0.553226566179934
+Accuracy TUNE after epoch 4: 0.554168629298163
+Accuracy TUNE after epoch 6: 0.5635892604804522
+Accuracy TUNE after epoch 8: 0.5753650494583137
+Accuracy TUNE after epoch 10: 0.586905322656618
+Accuracy TUNE after epoch 12: 0.5965614696184645
+Accuracy TUNE after epoch 14: 0.6059821008007537
+Accuracy TUNE after epoch 16: 0.6128120584079133
+Accuracy TUNE after epoch 18: 0.6151672162034856
+Accuracy TUNE after epoch 20: 0.6184644371172868
+Accuracy TUNE after epoch 22: 0.6234102684879888
+Accuracy TUNE after epoch 24: 0.6304757418747056
+Accuracy TUNE after epoch 26: 0.6262364578426755
+Accuracy TUNE after epoch 28: 0.6297691945360339
+Accuracy TUNE after epoch 30: 0.6262364578426755
+Accuracy TUNE after epoch 32: 0.6314178049929345
+Accuracy TUNE after epoch 34: 0.6333019312293924
+Accuracy TUNE after epoch 36: 0.6361281205840791
+Accuracy TUNE after epoch 38: 0.6316533207724918
+Accuracy TUNE after epoch 40: 0.6311822892133773
+Accuracy TUNE after epoch 42: 0.6290626471973623
+Accuracy TUNE after epoch 44: 0.6333019312293924
+Accuracy TUNE after epoch 46: 0.6307112576542628
+Accuracy TUNE after epoch 48: 0.6309467734338201
+Accuracy TUNE after epoch 50: 0.6309467734338201
+Accuracy TUNE after epoch 52: 0.6304757418747056
+Accuracy TUNE after epoch 54: 0.6307112576542628
+Accuracy TUNE after epoch 56: 0.6295336787564767
+Accuracy TUNE after epoch 58: 0.6304757418747056
+Accuracy TUNE after epoch 60: 0.6325953838907207
+Accuracy TUNE after epoch 62: 0.6333019312293924
+Accuracy TUNE after epoch 64: 0.6335374470089497
+Accuracy TUNE after epoch 66: 0.6325953838907207
+Accuracy TUNE after epoch 68: 0.6309467734338201
+Accuracy TUNE after epoch 70: 0.6297691945360339
+Accuracy TUNE after epoch 72: 0.6290626471973623
+Accuracy TUNE after epoch 74: 0.6290626471973623
+Accuracy TUNE after epoch 76: 0.6290626471973623
+Accuracy TUNE after epoch 78: 0.627885068299576
+Accuracy TUNE after epoch 80: 0.628827131417805
+Accuracy TUNE after epoch 82: 0.6302402260951484
+Accuracy TUNE after epoch 84: 0.628827131417805
+Accuracy TUNE after epoch 86: 0.6276495525200189
+Accuracy TUNE after epoch 88: 0.627885068299576
+Accuracy TUNE after epoch 90: 0.6297691945360339
+Accuracy TUNE after epoch 92: 0.6300047103155911
+Accuracy TUNE after epoch 94: 0.6285916156382477
+Accuracy TUNE after epoch 96: 0.6300047103155911
+Accuracy TUNE after epoch 98: 0.6283560998586906
+
+
+Confusion Matrix Data run on TEST
+
+2615.0 334.0 253.0 
+733.0 653.0 106.0 
+527.0 245.0 354.0 
+
+Accuracy:  0.6170357751277683
+Error Rate: 0.3829642248722317
+
+Recall alpha-helix: 0.31438721136767317
+Recall beta-strand: 0.43766756032171583
+Recall coil:        0.8166770768269831
+
+Precision alpha-helix:  0.4964936886395512
+Precision beta-strand:  0.5300324675324676
+Precision coil:         0.6748387096774193
+
+
+
+
+
+
+ - Configuring Network ann_10 - 
+
+	alpha: 0.05
+	drop_rate: 0.3
+	momentum term: 0.9
+
+	Running Network...
+
+Accuracy TRAIN after epoch 0: 0.5480327031170158
+Accuracy TRAIN after epoch 1: 0.5540793731902572
+Accuracy TRAIN after epoch 2: 0.5580820984500086
+Accuracy TRAIN after epoch 3: 0.5608073582013285
+Accuracy TRAIN after epoch 4: 0.5612331800374724
+Accuracy TRAIN after epoch 5: 0.5696644523931187
+Accuracy TRAIN after epoch 6: 0.57571112246636
+Accuracy TRAIN after epoch 7: 0.5874638051439278
+Accuracy TRAIN after epoch 8: 0.5938511326860841
+Accuracy TRAIN after epoch 9: 0.5981945154147504
+Accuracy TRAIN after epoch 10: 0.6027082268778743
+Accuracy TRAIN after epoch 11: 0.6035598705501618
+Accuracy TRAIN after epoch 12: 0.6128427865780958
+Accuracy TRAIN after epoch 13: 0.6193152784874808
+Accuracy TRAIN after epoch 14: 0.6171861693067621
+Accuracy TRAIN after epoch 15: 0.6238289899506047
+Accuracy TRAIN after epoch 16: 0.6220405382388009
+Accuracy TRAIN after epoch 17: 0.6258729347640947
+Accuracy TRAIN after epoch 18: 0.6265542497019247
+Accuracy TRAIN after epoch 19: 0.6287685232498722
+Accuracy TRAIN after epoch 20: 0.6285981945154148
+Accuracy TRAIN after epoch 21: 0.6353261795264861
+Accuracy TRAIN after epoch 22: 0.6376256174416625
+Accuracy TRAIN after epoch 23: 0.642224493272015
+Accuracy TRAIN after epoch 24: 0.6406063702946687
+Accuracy TRAIN after epoch 25: 0.6351558507920286
+Accuracy TRAIN after epoch 26: 0.6395843978879237
+Accuracy TRAIN after epoch 27: 0.6407766990291263
+Accuracy TRAIN after epoch 28: 0.63915857605178
+Accuracy TRAIN after epoch 29: 0.6406063702946687
+Accuracy TRAIN after epoch 30: 0.6429909725770737
+Accuracy TRAIN after epoch 31: 0.6404360415602112
+Accuracy TRAIN after epoch 32: 0.64324646567876
+Accuracy TRAIN after epoch 33: 0.6448645886561063
+Accuracy TRAIN after epoch 34: 0.6454607392267075
+Accuracy TRAIN after epoch 35: 0.6521035598705501
+Accuracy TRAIN after epoch 36: 0.6461420541645375
+Accuracy TRAIN after epoch 37: 0.6516777380344064
+Accuracy TRAIN after epoch 38: 0.6453755748594788
+Accuracy TRAIN after epoch 39: 0.6477601771418838
+Accuracy TRAIN after epoch 40: 0.646993697836825
+Accuracy TRAIN after epoch 41: 0.6495486288536876
+Accuracy TRAIN after epoch 42: 0.6500596150570601
+Accuracy TRAIN after epoch 43: 0.6519332311360927
+Accuracy TRAIN after epoch 44: 0.6460568897973088
+Accuracy TRAIN after epoch 45: 0.6543178334184977
+Accuracy TRAIN after epoch 46: 0.6519332311360927
+Accuracy TRAIN after epoch 47: 0.6580650655765627
+Accuracy TRAIN after epoch 48: 0.6532958610117526
+Accuracy TRAIN after epoch 49: 0.6498892863226027
+Accuracy TRAIN after epoch 50: 0.6552546414580139
+Accuracy TRAIN after epoch 51: 0.657979901209334
+Accuracy TRAIN after epoch 52: 0.6580650655765627
+Accuracy TRAIN after epoch 53: 0.6571282575370465
+Accuracy TRAIN after epoch 54: 0.656276613864759
+Accuracy TRAIN after epoch 55: 0.6558507920286152
+Accuracy TRAIN after epoch 56: 0.6604496678589679
+Accuracy TRAIN after epoch 57: 0.6574689150059615
+Accuracy TRAIN after epoch 58: 0.6595980241866803
+Accuracy TRAIN after epoch 59: 0.6598535172883665
+Accuracy TRAIN after epoch 60: 0.6509964230965763
+Accuracy TRAIN after epoch 61: 0.657979901209334
+Accuracy TRAIN after epoch 62: 0.6534661897462102
+Accuracy TRAIN after epoch 63: 0.6571282575370465
+Accuracy TRAIN after epoch 64: 0.6588315448816215
+Accuracy TRAIN after epoch 65: 0.6615568046329415
+Accuracy TRAIN after epoch 66: 0.6623232839380003
+Accuracy TRAIN after epoch 67: 0.6653040367910067
+Accuracy TRAIN after epoch 68: 0.6661556804632942
+Accuracy TRAIN after epoch 69: 0.657298586271504
+Accuracy TRAIN after epoch 70: 0.6599386816555953
+Accuracy TRAIN after epoch 71: 0.6584057230454777
+Accuracy TRAIN after epoch 72: 0.6615568046329415
+Accuracy TRAIN after epoch 73: 0.6584057230454777
+Accuracy TRAIN after epoch 74: 0.6632600919775166
+Accuracy TRAIN after epoch 75: 0.6619826264690853
+Accuracy TRAIN after epoch 76: 0.6567024357009027
+Accuracy TRAIN after epoch 77: 0.6644523931187192
+Accuracy TRAIN after epoch 78: 0.6643672287514903
+Accuracy TRAIN after epoch 79: 0.6596831885539091
+Accuracy TRAIN after epoch 80: 0.6653040367910067
+Accuracy TRAIN after epoch 81: 0.6654743655254641
+Accuracy TRAIN after epoch 82: 0.667603474706183
+Accuracy TRAIN after epoch 83: 0.6604496678589679
+Accuracy TRAIN after epoch 84: 0.6675183103389541
+Accuracy TRAIN after epoch 85: 0.6690512689490717
+Accuracy TRAIN after epoch 86: 0.660023846022824
+Accuracy TRAIN after epoch 87: 0.6709248850281042
+Accuracy TRAIN after epoch 88: 0.6671776528700392
+Accuracy TRAIN after epoch 89: 0.6670924885028104
+Accuracy TRAIN after epoch 90: 0.6670924885028104
+Accuracy TRAIN after epoch 91: 0.6718616930676206
+Accuracy TRAIN after epoch 92: 0.6618974621018566
+Accuracy TRAIN after epoch 93: 0.6664111735649804
+Accuracy TRAIN after epoch 94: 0.6664111735649804
+Accuracy TRAIN after epoch 95: 0.6655595298926928
+Accuracy TRAIN after epoch 96: 0.6666666666666666
+Accuracy TRAIN after epoch 97: 0.6682847896440129
+Accuracy TRAIN after epoch 98: 0.6648782149548629
+Accuracy TRAIN after epoch 99: 0.6694770907852154
+
+
+Accuracy TUNE after epoch 2: 0.553226566179934
+Accuracy TUNE after epoch 4: 0.5546396608572775
+Accuracy TUNE after epoch 6: 0.5631182289213378
+Accuracy TUNE after epoch 8: 0.5727743758831841
+Accuracy TUNE after epoch 10: 0.587847385774847
+Accuracy TUNE after epoch 12: 0.59609043805935
+Accuracy TUNE after epoch 14: 0.5977390485162506
+Accuracy TUNE after epoch 16: 0.6088082901554405
+Accuracy TUNE after epoch 18: 0.6111634479510127
+Accuracy TUNE after epoch 20: 0.6130475741874706
+Accuracy TUNE after epoch 22: 0.6231747527084315
+Accuracy TUNE after epoch 24: 0.6260009420631182
+Accuracy TUNE after epoch 26: 0.6262364578426755
+Accuracy TUNE after epoch 28: 0.6269430051813472
+Accuracy TUNE after epoch 30: 0.6295336787564767
+Accuracy TUNE after epoch 32: 0.6311822892133773
+Accuracy TUNE after epoch 34: 0.6307112576542628
+Accuracy TUNE after epoch 36: 0.6281205840791333
+Accuracy TUNE after epoch 38: 0.6300047103155911
+Accuracy TUNE after epoch 40: 0.6311822892133773
+Accuracy TUNE after epoch 42: 0.631888836552049
+Accuracy TUNE after epoch 44: 0.6309467734338201
+Accuracy TUNE after epoch 46: 0.6321243523316062
+Accuracy TUNE after epoch 48: 0.6344795101271785
+Accuracy TUNE after epoch 50: 0.634950541686293
+Accuracy TUNE after epoch 52: 0.6356570890249646
+Accuracy TUNE after epoch 54: 0.6321243523316062
+Accuracy TUNE after epoch 56: 0.6333019312293924
+Accuracy TUNE after epoch 58: 0.632830899670278
+Accuracy TUNE after epoch 60: 0.6354215732454075
+Accuracy TUNE after epoch 62: 0.634950541686293
+Accuracy TUNE after epoch 64: 0.6342439943476212
+Accuracy TUNE after epoch 66: 0.6361281205840791
+Accuracy TUNE after epoch 68: 0.6377767310409798
+Accuracy TUNE after epoch 70: 0.6384832783796515
+Accuracy TUNE after epoch 72: 0.634950541686293
+Accuracy TUNE after epoch 74: 0.6370701837023081
+Accuracy TUNE after epoch 76: 0.6373056994818653
+Accuracy TUNE after epoch 78: 0.6365991521431936
+Accuracy TUNE after epoch 80: 0.6384832783796515
+Accuracy TUNE after epoch 82: 0.6323598681111634
+Accuracy TUNE after epoch 84: 0.6396608572774376
+Accuracy TUNE after epoch 86: 0.6380122468205369
+Accuracy TUNE after epoch 88: 0.6387187941592086
+Accuracy TUNE after epoch 90: 0.6391898257183232
+Accuracy TUNE after epoch 92: 0.6387187941592086
+Accuracy TUNE after epoch 94: 0.6375412152614225
+Accuracy TUNE after epoch 96: 0.6403674046161093
+Accuracy TUNE after epoch 98: 0.6387187941592086
+
+
+Confusion Matrix Data run on TEST
+
+2661.0 333.0 208.0 
+773.0 642.0 77.0 
+540.0 267.0 319.0 
+
+Accuracy:  0.6170357751277683
+Error Rate: 0.3829642248722317
+
+Recall alpha-helix: 0.283303730017762
+Recall beta-strand: 0.43029490616621985
+Recall coil:        0.8310430980637101
+
+Precision alpha-helix:  0.5281456953642384
+Precision beta-strand:  0.5169082125603864
+Precision coil:         0.6696024157020634
+
+
+
+
+
+
+ - Configuring Network ann_30 - 
+
+	alpha: 0.05
+	drop_rate: 0.3
+	momentum term: 0.9
+
+	Running Network....
+
+Accuracy TRAIN after epoch 0: 0.5567194685743485
+Accuracy TRAIN after epoch 1: 0.5691534661897462
+Accuracy TRAIN after epoch 2: 0.5786067109521377
+Accuracy TRAIN after epoch 3: 0.5915516947709079
+Accuracy TRAIN after epoch 4: 0.5985351728836654
+Accuracy TRAIN after epoch 5: 0.6049225004258219
+Accuracy TRAIN after epoch 6: 0.6173564980412195
+Accuracy TRAIN after epoch 7: 0.6173564980412195
+Accuracy TRAIN after epoch 8: 0.6261284278657809
+Accuracy TRAIN after epoch 9: 0.6335377278146823
+Accuracy TRAIN after epoch 10: 0.6360074944643161
+Accuracy TRAIN after epoch 11: 0.6360074944643161
+Accuracy TRAIN after epoch 12: 0.6396695622551525
+Accuracy TRAIN after epoch 13: 0.640861863396355
+Accuracy TRAIN after epoch 14: 0.6532958610117526
+Accuracy TRAIN after epoch 15: 0.6501447794242888
+Accuracy TRAIN after epoch 16: 0.6526997104411514
+Accuracy TRAIN after epoch 17: 0.6580650655765627
+Accuracy TRAIN after epoch 18: 0.6536365184806677
+Accuracy TRAIN after epoch 19: 0.6553398058252428
+Accuracy TRAIN after epoch 20: 0.657639243740419
+Accuracy TRAIN after epoch 21: 0.6615568046329415
+Accuracy TRAIN after epoch 22: 0.6617271333673991
+Accuracy TRAIN after epoch 23: 0.6630045988758303
+Accuracy TRAIN after epoch 24: 0.6660705160960654
+Accuracy TRAIN after epoch 25: 0.6671776528700392
+Accuracy TRAIN after epoch 26: 0.6673479816044967
+
+
+Accuracy TUNE after epoch 2: 0.5567593028732926
+Accuracy TUNE after epoch 4: 0.5836081017428167
+Accuracy TUNE after epoch 6: 0.5977390485162506
+Accuracy TUNE after epoch 8: 0.6116344795101272
+Accuracy TUNE after epoch 10: 0.6163447951012718
+Accuracy TUNE after epoch 12: 0.624823363165332
+Accuracy TUNE after epoch 14: 0.6333019312293924
+Accuracy TUNE after epoch 16: 0.6354215732454075
+Accuracy TUNE after epoch 18: 0.6394253414978803
+Accuracy TUNE after epoch 20: 0.6389543099387659
+Accuracy TUNE after epoch 22: 0.6354215732454075
+Accuracy TUNE after epoch 24: 0.641073951954781
+Accuracy TUNE after epoch 26: 0.6422515308525671
+
+
+Confusion Matrix Data run on TEST
+
+2698.0 294.0 210.0 
+792.0 618.0 82.0 
+559.0 242.0 325.0 
+
+Accuracy:  0.6202725724020443
+Error Rate: 0.37972742759795575
+
+Recall alpha-helix: 0.2886323268206039
+Recall beta-strand: 0.41420911528150134
+Recall coil:        0.8425983760149907
+
+Precision alpha-helix:  0.526742301458671
+Precision beta-strand:  0.5355285961871751
+Precision coil:         0.6663373672511731
+
+
+
+
+
+
+ - Configuring Network ann_100 - 
+
+	alpha: 0.05
+	drop_rate: 0.3
+	momentum term: 0.9
+
+	Running Network...
+
+Accuracy TRAIN after epoch 0: 0.57571112246636
+Accuracy TRAIN after epoch 1: 0.6105433486629195
+Accuracy TRAIN after epoch 2: 0.6140350877192983
+Accuracy TRAIN after epoch 3: 0.629194345086016
+Accuracy TRAIN after epoch 4: 0.6387327542156361
+Accuracy TRAIN after epoch 5: 0.6407766990291263
+Accuracy TRAIN after epoch 6: 0.6488673139158576
+Accuracy TRAIN after epoch 7: 0.6528700391756089
+Accuracy TRAIN after epoch 8: 0.6531255322772952
+Accuracy TRAIN after epoch 9: 0.6641117356498041
+Accuracy TRAIN after epoch 10: 0.6660705160960654
+Accuracy TRAIN after epoch 11: 0.6652188724237779
+Accuracy TRAIN after epoch 12: 0.6756940895929143
+Accuracy TRAIN after epoch 13: 0.6762902401635156
+Accuracy TRAIN after epoch 14: 0.6762902401635156
+Accuracy TRAIN after epoch 15: 0.6750979390223131
+Accuracy TRAIN after epoch 16: 0.6820814171350706
+Accuracy TRAIN after epoch 17: 0.683699540112417
+Accuracy TRAIN after epoch 18: 0.6880429228410833
+Accuracy TRAIN after epoch 19: 0.6928121274058934
+Accuracy TRAIN after epoch 20: 0.6849770056208483
+Accuracy TRAIN after epoch 21: 0.687446772270482
+Accuracy TRAIN after epoch 22: 0.6906830182251746
+Accuracy TRAIN after epoch 23: 0.6897462101856583
+Accuracy TRAIN after epoch 24: 0.6888094021461421
+Accuracy TRAIN after epoch 25: 0.6943450860160109
+Accuracy TRAIN after epoch 26: 0.6969851814001022
+Accuracy TRAIN after epoch 27: 0.6943450860160109
+Accuracy TRAIN after epoch 28: 0.6951967296882984
+Accuracy TRAIN after epoch 29: 0.6965593595639584
+Accuracy TRAIN after epoch 30: 0.6974110032362459
+
+
+Accuracy TUNE after epoch 2: 0.5558172397550636
+Accuracy TUNE after epoch 4: 0.5873763542157324
+Accuracy TUNE after epoch 6: 0.6033914272256241
+Accuracy TUNE after epoch 8: 0.6043334903438531
+Accuracy TUNE after epoch 10: 0.6146961846443711
+Accuracy TUNE after epoch 12: 0.6260009420631182
+Accuracy TUNE after epoch 14: 0.6316533207724918
+Accuracy TUNE after epoch 16: 0.6300047103155911
+Accuracy TUNE after epoch 18: 0.6250588789448893
+Accuracy TUNE after epoch 20: 0.6406029203956665
+Accuracy TUNE after epoch 22: 0.6325953838907207
+Accuracy TUNE after epoch 24: 0.6335374470089497
+Accuracy TUNE after epoch 26: 0.6363636363636364
+Accuracy TUNE after epoch 28: 0.6368346679227508
+Accuracy TUNE after epoch 30: 0.6453132359868111
+
+
+Confusion Matrix Data run on TEST
+
+2642.0 264.0 296.0 
+783.0 562.0 147.0 
+506.0 201.0 419.0 
+
+Accuracy:  0.617206132879046
+Error Rate: 0.382793867120954
+
+Recall alpha-helix: 0.37211367673179396
+Recall beta-strand: 0.37667560321715815
+Recall coil:        0.8251093066833229
+
+Precision alpha-helix:  0.48607888631090485
+Precision beta-strand:  0.5472249269717624
+Precision coil:         0.6720936148562706
+
+
+
+
+
+
+ - Configuring Network ann_1000 - 
+
+	alpha: 0.05
+	drop_rate: 0.3
+	momentum term: 0.9
+
+	Running Network...
+
