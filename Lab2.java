@@ -176,7 +176,7 @@ public class Lab2 {
 					}
 					back_propagation(network_output, true_output, alpha, momentum);
 					this.removeDropN();
-					assess_network_output(true_output, network_output, cm);
+					assess_network_output(true_output, network_output, cm, false);
 				}
 			}
 			confu_accuracy = (cm[0][0] + cm[1][1] + cm[2][2]) / total;
@@ -195,7 +195,7 @@ public class Lab2 {
 						// input window example for this amino acid
 						double [] true_output = window.getOutputs()[8];
 						double [] network_output = feed_forward(window, false);
-						assess_network_output(true_output, network_output, cm);
+						assess_network_output(true_output, network_output, cm, false);
 					}
 				}
 				confu_accuracy = (cm[0][0] + cm[1][1] + cm[2][2]) / total;
@@ -222,7 +222,7 @@ public class Lab2 {
 				// input window example for this amino acid
 				double [] true_output = window.getOutputs()[8];
 				double [] network_output = feed_forward(window, true);
-				assess_network_output(true_output, network_output, cm);
+				assess_network_output(true_output, network_output, cm, true);
 			}
 		}		
 		statPrint(train_accuracy_stream, tune_accuracy_stream, cm, total);
@@ -304,7 +304,7 @@ public class Lab2 {
 	 * using network output and target_output.
 	 * 
 	 * */
-	void assess_network_output (double [] true_output, double [] network_output, double [][] cm) {
+	void assess_network_output (double [] true_output, double [] network_output, double [][] cm, boolean print) {
 		
 		int true_idx = 0;
 		int net_max_idx = 0;
@@ -320,6 +320,15 @@ public class Lab2 {
 			}
 		}
 		cm[true_idx][net_max_idx]++;
+		if (print) {
+			if (net_max_idx == 0) {
+				System.out.println("COIL");
+			} else if (net_max_idx == 1) {
+				System.out.println("ALPHA-HELIX");
+			} else if (net_max_idx == 2) {
+				System.out.println("BETA-STRAND");
+			}
+		}
 		//System.out.println("target idx: " + true_idx + " netout idx: "+ net_max_idx);
 	}
 	
@@ -523,12 +532,12 @@ class Neuron {
 				double prev_output = in.output;
 				sum = sum + (weight * prev_output);				
 			}	
-			if (this.type == Neuron_Type.HIDDEN) {
-				this.output = Math.max(0, sum);
-			} else {    // Output Neuron 
+			//if (this.type == Neuron_Type.HIDDEN) {
+			//	this.output = Math.max(0, sum);
+			//} else {    // Output Neuron 
 				// Sigmoid Activation function
 				this.output = 1.0/ (1.0 + Math.exp(-sum));
-			}
+			//}
 		}
 	}
 		
@@ -619,10 +628,6 @@ class Layer {
 	
 	
 }
-
-
-
-
 
 
 
