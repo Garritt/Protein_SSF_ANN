@@ -1,18 +1,14 @@
-# Protein Structure ANN
-* [2-11] Working on the IO for the ANN. So far it is reading in 128 protein structures and saving the amino acid sequence as well as the target output to a "protein" object. will need to update this so that the IO is a sliding window of 17. maybe a scanner on the protein list? - cvhn
+# Protein Secondary Structure Folding ANN
+-----------------------------------------
+**Approximately replecated methodology from ...**
+  
+ **[Using knowledge-based neural networks to improve algorithms:  
+ Refining the Chou-Fasman algorithm for protein folding](http://link.springer.com/article/10.1007/BF00993077)**
 
-## IO.java File
+------------------------------------------
 
-* There are now three classes within this file:
+*compile:* javac \*.java  
+*run:* java Network in.data
 
-### Protein
 
-* This is the protein object. getWindow is here
-* getwindow will return a String[][] = new String[2][17] which is the window of amino acids as well as target outputs
 
-### IO
-
-* Handles the io for the project. builds proteins and partitions into appropriate datasets
-
-### DataSets
-* The three lists: train, tune, test
