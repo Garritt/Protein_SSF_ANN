@@ -19,30 +19,32 @@ Data was split into three test sets for our version of this network: Train, Tune
   
   
 Out of 128 proteins, they were broken up as follows:  
-...tune: index % 5 = 0  
-...train: index % 6 = 0  
-...test: the rest of the proteins.
+* tune: index % 5 = 0  
+* train: index % 6 = 0  
+* test: the rest of the proteins.
 
 
 ---------------------------------------------
 
-**Network**
+**Network:**
   
   
 This network is implemented with:
-...Hinton's Droput 
-...Momentum Term for backpropagation
-...Early Stopping
+* Hinton's Droput 
+* Momentum Term for backpropagation
+* Early Stopping
 
 
-This network preforms best with the configuration found in the main method.  
-  
-
+Network preforms best with the configuration found in the main method.  
 
 
 ---------------------------------------------
 *compile:* javac \*.java  
 *run:* java Network in.data
 
+--------------------------------------------
+*Garritt Moede*  
+*Cormick Hnilicka*  
 
+UW MADISON - JUDE SHAVLIK
 
