@@ -1,18 +1,50 @@
-# Protein Structure ANN
-* [2-11] Working on the IO for the ANN. So far it is reading in 128 protein structures and saving the amino acid sequence as well as the target output to a "protein" object. will need to update this so that the IO is a sliding window of 17. maybe a scanner on the protein list? - cvhn
+# Protein Secondary Structure Folding ANN
 
-## IO.java File
+-----------------------------------------
 
-* There are now three classes within this file:
+**Approximately replecated methodology from ...**
+  
+ **[Using knowledge-based neural networks to improve algorithms:  
+ Refining the Chou-Fasman algorithm for protein folding](http://link.springer.com/article/10.1007/BF00993077)**
 
-### Protein
+------------------------------------------
 
-* This is the protein object. getWindow is here
-* getwindow will return a String[][] = new String[2][17] which is the window of amino acids as well as target outputs
+**Data Set:** 
 
-### IO
+Test set for study of secondary structure of globular proteins by
+**Ning Qing** and **Terry Sejnowski.** 
 
-* Handles the io for the project. builds proteins and partitions into appropriate datasets
+There were 128 protiens in the UC-Irvine archive. Train and Test were combined into one file (with train in front).
+Data was split into three test sets for our version of this network: Train, Tune and Test.  
+  
+  
+Out of 128 proteins, they were broken up as follows:  
+* tune: index % 5 = 0  
+* train: index % 6 = 0  
+* test: the rest of the proteins.
 
-### DataSets
-* The three lists: train, tune, test
+
+---------------------------------------------
+
+**Network:**
+  
+  
+This network is implemented with:
+* Hinton's Droput 
+* Momentum Term for backpropagation
+* Early Stopping
+
+
+Network preforms best with the configuration found in the main method.  
+
+
+---------------------------------------------
+*compile:* javac \*.java  
+*run:* java Network in.data
+
+--------------------------------------------
+*Garritt Moede*  
+*Cormick Hnilicka*  
+
+UW MADISON - JUDE SHAVLIK
+
