@@ -87,12 +87,12 @@ public class Neuron {
 				double prev_output = in.output;
 				sum = sum + (weight * prev_output);				
 			}	
-			if (this.type == Neuron_Type.HIDDEN) {
-				this.output = Math.max(0, sum);
-			} else {    // Output Neuron 
+			//if (this.type == Neuron_Type.HIDDEN) {
+			//	this.output = Math.max(0, sum);
+			//} else {    // Output Neuron 
 				// Sigmoid Activation function
 				this.output = 1.0/ (1.0 + Math.exp(-sum));
-			}
+			//}
 		}
 	}
 		
